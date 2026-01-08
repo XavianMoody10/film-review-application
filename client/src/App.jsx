@@ -4,16 +4,12 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Home } from "./pages/Home";
 import { Movies } from "./pages/Movies";
 import { Collection } from "./pages/Collection";
+import { TV } from "./pages/TV";
+import { SideNavigationProvider } from "./contexts/SideNavigationContext";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -26,8 +22,13 @@ function App() {
         <Route index element={<Home />} />
 
         <Route path="/movies">
-          <Route index element={<Movies />}></Route>
-          <Route path="collection/:list" element={<Collection />}></Route>
+          <Route index element={<Movies />} />
+          <Route path="collection/:list" element={<Collection />} />
+        </Route>
+
+        <Route path="/tv">
+          <Route index element={<TV />} />
+          <Route path="collection/:list" element={<Collection />} />
         </Route>
       </>
     )
@@ -35,7 +36,9 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <SideNavigationProvider>
+        <RouterProvider router={router} />
+      </SideNavigationProvider>
     </QueryClientProvider>
   );
 }

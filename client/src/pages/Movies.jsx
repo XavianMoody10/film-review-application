@@ -5,13 +5,18 @@ import { useFetchMoviesCollectionByList } from "../hooks/useFetchMoviesCollectio
 import { MediaPosterSlider } from "../components/MediaPosterSlider";
 import { Link } from "react-router-dom";
 import { useFetchTrendingMediaCollection } from "../hooks/useFetchTrendingMedia";
+import { Header } from "../layouts/Header";
+import { SideNavigation } from "../layouts/SideNavigation";
 
 export const Movies = () => {
   const trendingMovies = useFetchTrendingMediaCollection("movies");
 
   return (
     <>
-      <main className=" min-h-screen bg-[#F5F5F5]">
+      <Header />
+      <SideNavigation />
+
+      <main className=" min-h-screen bg-[#F5F5F5] pt-24">
         <div className=" max-w-400 mx-auto w-[95%] space-y-14">
           <section>
             <div className=" bg-white w-full relative min-h-[90vh]">
