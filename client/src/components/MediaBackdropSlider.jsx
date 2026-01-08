@@ -14,7 +14,7 @@ export const MediaBackdropSlider = ({ results }) => {
           <div className=" absolute top-0 left-0 bottom-0 right-0 bg-black/65 flex p-5 sm:p-10">
             <div className=" flex flex-col justify-end gap-3 max-w-175">
               <h2 className=" font-inter font-extrabold text-white text-2xl tracking-wider sm:text-3xl sm:font-medium">
-                {slide.original_title}
+                {slide.original_title || slide.name}
               </h2>
               <p className=" font-inter text-white text-lg leading-loose hidden sm:block">
                 {slide.overview}
