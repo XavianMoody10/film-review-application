@@ -13,6 +13,7 @@ import {
 } from "@tanstack/react-query";
 import { Home } from "./pages/Home";
 import { Movies } from "./pages/Movies";
+import { Collection } from "./pages/Collection";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -23,7 +24,11 @@ function App() {
     createRoutesFromElements(
       <>
         <Route index element={<Home />} />
-        <Route path="/movies" element={<Movies />} />
+
+        <Route path="/movies">
+          <Route index element={<Movies />}></Route>
+          <Route path="collection/:list" element={<Collection />}></Route>
+        </Route>
       </>
     )
   );
