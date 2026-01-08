@@ -1,17 +1,21 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { useFetchMoviesCollectionByList } from "../hooks/useFetchMoviesCollectionByList";
-import { motion } from "motion/react";
 import { MediaSliderLoadingOverlay } from "./MediaSliderLoadingOverlay";
 import { MediaSliderErrorMessageOverlay } from "./MediaSliderErrorMessageOverlay";
 import { MediaPoster } from "./MediaPoster";
+import { useInView } from "react-intersection-observer";
 
-export const MediaPosterSlider = ({ listValue }) => {
-  const query = useFetchMoviesCollectionByList("popular");
+export const MediaPosterSlider = ({ event, listValue }) => {
+  const { ref, inView } = useInView({
+    threshold: 0.2,
+    triggerOnce: true,
+    rootMargin: "0px 0px 500px 0px",
+  });
+
+  const query = event(listValue, inView);
 
   const slides = query.data?.results.map((slide) => {
-    const poster = `https://image.tmdb.org/t/p/original${slide.poster_path}`;
-
     return (
       <SwiperSlide>
         <MediaPoster
@@ -23,7 +27,10 @@ export const MediaPosterSlider = ({ listValue }) => {
   });
 
   return (
-    <div className=" min-h-50 sm:min-h-75 lg:min-h-100 relative">
+    <div
+      ref={ref}
+      className="min-h-50 min-[500px]:min-h-86.25 sm:min-h-[288.984px] min-[900px]:min-h-[364.984px] lg:min-h-87 relative"
+    >
       <MediaSliderLoadingOverlay isLoading={query.isLoading} />
 
       {query.isSuccess && (

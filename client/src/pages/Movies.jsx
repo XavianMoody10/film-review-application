@@ -29,13 +29,51 @@ export const Movies = () => {
           </section>
 
           <section className=" space-y-7">
-            <Link to={"/movies/collection/popular"} className=" block">
+            <Link
+              to={"/movies/collection/popular"}
+              className=" w-fit block hover:underline"
+            >
               <h2 className=" font-inter font-extrabold text-2xl sm:text-3xl">
                 Popular Movies
               </h2>
             </Link>
 
-            <MediaPosterSlider />
+            <MediaPosterSlider
+              event={useFetchMoviesCollectionByList}
+              listValue={"popular"}
+            />
+          </section>
+
+          <section className=" space-y-7">
+            <Link
+              to={"/movies/collection/top_rated"}
+              className=" w-fit block hover:underline"
+            >
+              <h2 className=" font-inter font-extrabold text-2xl sm:text-3xl">
+                Top Rated Movies
+              </h2>
+            </Link>
+
+            <MediaPosterSlider
+              event={useFetchMoviesCollectionByList}
+              listValue={"top_rated"}
+            />
+          </section>
+
+          <section className=" space-y-7">
+            <Link
+              to={"/movies/collection/upcoming"}
+              className=" w-fit block hover:underline"
+            >
+              <h2 className=" font-inter font-extrabold text-2xl sm:text-3xl">
+                Upcoming Movies
+              </h2>
+            </Link>
+
+            <MediaPosterSlider
+              event={useFetchMoviesCollectionByList}
+              listValue={"upcoming"}
+            />
           </section>
         </div>
       </main>
