@@ -1,14 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
-import { getMovieCollectionByList } from "../services/movies.services";
 import { MediaBackdropSlider } from "../components/MediaBackdropSlider";
 import { MediaSliderLoadingOverlay } from "../components/MediaSliderLoadingOverlay";
 import { MediaSliderErrorMessageOverlay } from "../components/MediaSliderErrorMessageOverlay";
 import { useFetchMoviesCollectionByList } from "../hooks/useFetchMoviesCollectionByList";
 import { MediaPosterSlider } from "../components/MediaPosterSlider";
 import { Link } from "react-router-dom";
+import { useFetchTrendingMediaCollection } from "../hooks/useFetchTrendingMedia";
 
 export const Movies = () => {
-  const nowPlayingQuery = useFetchMoviesCollectionByList("now_playing");
+  const trendingMovies = useFetchTrendingMediaCollection("movies");
 
   return (
     <>
@@ -16,16 +15,30 @@ export const Movies = () => {
         <div className=" max-w-400 mx-auto w-[95%] space-y-14">
           <section>
             <div className=" bg-white w-full relative min-h-[90vh]">
-              <MediaSliderLoadingOverlay
-                isLoading={nowPlayingQuery.isLoading}
-              />
+              <MediaSliderLoadingOverlay isLoading={trendingMovies.isLoading} />
 
-              {nowPlayingQuery.isSuccess && (
-                <MediaBackdropSlider results={nowPlayingQuery.data?.results} />
+              {trendingMovies.isSuccess && (
+                <MediaBackdropSlider results={trendingMovies.data?.results} />
               )}
 
-              {nowPlayingQuery.isError && <MediaSliderErrorMessageOverlay />}
+              {trendingMovies.isError && <MediaSliderErrorMessageOverlay />}
             </div>
+          </section>
+
+          <section className=" space-y-7">
+            <Link
+              to={"/movies/collection/now_playing"}
+              className=" w-fit block hover:underline"
+            >
+              <h2 className=" font-inter font-extrabold text-2xl sm:text-3xl">
+                Now Playing
+              </h2>
+            </Link>
+
+            <MediaPosterSlider
+              event={useFetchMoviesCollectionByList}
+              listValue={"now_playing"}
+            />
           </section>
 
           <section className=" space-y-7">
@@ -34,7 +47,7 @@ export const Movies = () => {
               className=" w-fit block hover:underline"
             >
               <h2 className=" font-inter font-extrabold text-2xl sm:text-3xl">
-                Popular Movies
+                Popular
               </h2>
             </Link>
 
@@ -50,7 +63,7 @@ export const Movies = () => {
               className=" w-fit block hover:underline"
             >
               <h2 className=" font-inter font-extrabold text-2xl sm:text-3xl">
-                Top Rated Movies
+                Top Rated
               </h2>
             </Link>
 
@@ -66,7 +79,7 @@ export const Movies = () => {
               className=" w-fit block hover:underline"
             >
               <h2 className=" font-inter font-extrabold text-2xl sm:text-3xl">
-                Upcoming Movies
+                Upcoming
               </h2>
             </Link>
 
