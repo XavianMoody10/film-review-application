@@ -4,7 +4,18 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-import { Home } from "./page/Home";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
+import { Home } from "./pages/Home";
+import { Movies } from "./pages/Movies";
+
+// Create a client
+const queryClient = new QueryClient();
 
 function App() {
   // All routes
@@ -12,11 +23,16 @@ function App() {
     createRoutesFromElements(
       <>
         <Route index element={<Home />} />
+        <Route path="/movies" element={<Movies />} />
       </>
     )
   );
 
-  return <RouterProvider router={router} />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  );
 }
 
 export default App;
