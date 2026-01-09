@@ -9,6 +9,7 @@ import airingTodayTVMockdata from "./mockdata/airingTodayTV.mockdata";
 import onTheAirTVShowsMockdata from "./mockdata/onTheAirTVShows.mockdata";
 import popularTVShowsMockdata from "./mockdata/popularTVShows.mockdata";
 import topRatedTVShowsMockdata from "./mockdata/topRatedTVShows.mockdata";
+import movieDetailsMockdata from "./mockdata/movieDetails.mockdata";
 
 export const handlers = [
   http.get("https://localhost:3001/movies/now_playing", async () => {
@@ -38,6 +39,19 @@ export const handlers = [
   http.get("https://localhost:3001/movies/trending", async () => {
     // await delay(3000);
     return HttpResponse.json(trendingMoviesMockdata);
+    // return HttpResponse.json(null, { status: 400 });
+  }),
+
+  http.get("https://localhost:3001/movies/details/:id", async ({ params }) => {
+    // await delay(3000);
+    const { id } = params;
+
+    if (id == "83533") {
+      return HttpResponse.json(movieDetailsMockdata);
+    } else {
+      return HttpResponse.json(null, { status: 404 });
+    }
+
     // return HttpResponse.json(null, { status: 400 });
   }),
 
