@@ -36,6 +36,7 @@ export const Movies = () => {
             </Link>
 
             <MediaPosterSlider
+              media={"movies"}
               event={useFetchMoviesCollectionByList}
               listValue={"now_playing"}
             />
@@ -52,6 +53,7 @@ export const Movies = () => {
             </Link>
 
             <MediaPosterSlider
+              media={"movies"}
               event={useFetchMoviesCollectionByList}
               listValue={"popular"}
             />
@@ -68,6 +70,7 @@ export const Movies = () => {
             </Link>
 
             <MediaPosterSlider
+              media={"movies"}
               event={useFetchMoviesCollectionByList}
               listValue={"top_rated"}
             />
@@ -84,6 +87,7 @@ export const Movies = () => {
             </Link>
 
             <MediaPosterSlider
+              media={"movies"}
               event={useFetchMoviesCollectionByList}
               listValue={"upcoming"}
             />

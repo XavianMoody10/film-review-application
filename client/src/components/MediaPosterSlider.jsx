@@ -1,12 +1,12 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { useFetchMoviesCollectionByList } from "../hooks/useFetchMoviesCollectionByList";
 import { MediaSliderLoadingOverlay } from "./MediaSliderLoadingOverlay";
 import { MediaSliderErrorMessageOverlay } from "./MediaSliderErrorMessageOverlay";
 import { MediaPoster } from "./MediaPoster";
 import { useInView } from "react-intersection-observer";
+import { Link } from "react-router-dom";
 
-export const MediaPosterSlider = ({ event, listValue }) => {
+export const MediaPosterSlider = ({ event, media, listValue }) => {
   const { ref, inView } = useInView({
     threshold: 0.2,
     triggerOnce: true,
@@ -17,11 +17,13 @@ export const MediaPosterSlider = ({ event, listValue }) => {
 
   const slides = query.data?.results.map((slide) => {
     return (
-      <SwiperSlide>
-        <MediaPoster
-          original_title={slide.original_title}
-          poster_path={slide.poster_path}
-        />
+      <SwiperSlide key={slide.id}>
+        <Link to={`/${media}/details/${slide.id}`}>
+          <MediaPoster
+            original_title={slide.original_title}
+            poster_path={slide.poster_path}
+          />
+        </Link>
       </SwiperSlide>
     );
   });

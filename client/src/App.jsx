@@ -13,6 +13,7 @@ import { TV } from "./pages/TV";
 import { SideNavigationProvider } from "./contexts/SideNavigationContext";
 import { Header } from "./layouts/Header";
 import { SideNavigation } from "./layouts/SideNavigation";
+import { Details } from "./pages/Details";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -37,11 +38,13 @@ function App() {
           <Route path="/movies">
             <Route index element={<Movies />} />
             <Route path="collection/:list" element={<Collection />} />
+            <Route path="details/:id" element={<Details />} />
           </Route>
 
           <Route path="/tv">
             <Route index element={<TV />} />
             <Route path="collection/:list" element={<Collection />} />
+            <Route path="details/:id" element={<Details />} />
           </Route>
         </Route>
       </>

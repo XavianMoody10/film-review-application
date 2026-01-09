@@ -27,7 +27,7 @@ export const TV = () => {
 
           <section className=" space-y-7">
             <Link
-              to={"/movies/collection/airing_today"}
+              to={"/tv/collection/airing_today"}
               className=" w-fit block hover:underline"
             >
               <h2 className=" font-inter font-extrabold text-2xl sm:text-3xl">
@@ -36,6 +36,7 @@ export const TV = () => {
             </Link>
 
             <MediaPosterSlider
+              media={"tv"}
               event={useFetchTVCollectionByList}
               listValue={"airing_today"}
             />
@@ -43,7 +44,7 @@ export const TV = () => {
 
           <section className=" space-y-7">
             <Link
-              to={"/movies/collection/on_the_air"}
+              to={"/tv/collection/on_the_air"}
               className=" w-fit block hover:underline"
             >
               <h2 className=" font-inter font-extrabold text-2xl sm:text-3xl">
@@ -52,6 +53,7 @@ export const TV = () => {
             </Link>
 
             <MediaPosterSlider
+              media={"tv"}
               event={useFetchTVCollectionByList}
               listValue={"on_the_air"}
             />
@@ -59,7 +61,7 @@ export const TV = () => {
 
           <section className=" space-y-7">
             <Link
-              to={"/movies/collection/popular"}
+              to={"/tv/collection/popular"}
               className=" w-fit block hover:underline"
             >
               <h2 className=" font-inter font-extrabold text-2xl sm:text-3xl">
@@ -68,6 +70,7 @@ export const TV = () => {
             </Link>
 
             <MediaPosterSlider
+              media={"tv"}
               event={useFetchTVCollectionByList}
               listValue={"popular"}
             />
@@ -75,7 +78,7 @@ export const TV = () => {
 
           <section className=" space-y-7">
             <Link
-              to={"/movies/collection/top_rated"}
+              to={"/tv/collection/top_rated"}
               className=" w-fit block hover:underline"
             >
               <h2 className=" font-inter font-extrabold text-2xl sm:text-3xl">
@@ -84,6 +87,7 @@ export const TV = () => {
             </Link>
 
             <MediaPosterSlider
+              media={"tv"}
               event={useFetchTVCollectionByList}
               listValue={"top_rated"}
             />
