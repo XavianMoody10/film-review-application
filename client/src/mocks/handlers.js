@@ -84,4 +84,43 @@ export const handlers = [
     return HttpResponse.json(topRatedTVShowsMockdata);
     // return HttpResponse.json(null, { status: 400 });
   }),
+
+  http.get("https://localhost:3001/reviews", async () => {
+    await delay(3000);
+
+    return HttpResponse.json([
+      {
+        id: "1",
+        title: "This was a wonderful movie!!!",
+        review: "This is a review",
+        rating: 4.5,
+      },
+    ]);
+
+    // return HttpResponse.json([]);
+
+    // return HttpResponse.json(null, { status: 400 });
+  }),
+
+  http.post("https://localhost:3001/reviews", async ({ request }) => {
+    const data = await request.json();
+
+    await delay(3000);
+
+    return HttpResponse.json([
+      {
+        id: "1",
+        title: "This was a wonderful movie!!!",
+        review: "This is a review",
+        rating: 4.5,
+      },
+      {
+        id: "2",
+        title: data.title,
+        review: data.review,
+        rating: data.rating,
+      },
+    ]);
+    // return HttpResponse.json(null, { status: 400 });
+  }),
 ];
