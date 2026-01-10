@@ -22,7 +22,18 @@ export const ReviewsSlider = ({ reviews }) => {
     );
   });
   return (
-    <Swiper slidesPerView={3} spaceBetween={20}>
+    <Swiper
+      slidesPerView={1}
+      spaceBetween={20}
+      breakpoints={{
+        800: {
+          slidesPerView: 2,
+        },
+        1200: {
+          slidesPerView: 3,
+        },
+      }}
+    >
       {slides}
     </Swiper>
   );

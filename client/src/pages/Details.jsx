@@ -4,15 +4,19 @@ import { useEffect, useState } from "react";
 import { ReviewsSlider } from "../components/ReviewsSlider";
 import { MediaSliderLoadingOverlay } from "../components/MediaSliderLoadingOverlay";
 import { ClipLoader } from "react-spinners";
-import { motion } from "motion/react";
 import { useFetchMediaDetails } from "../hooks/useFetchMediaDetails";
 import { useFetchMediaReviews } from "../hooks/useFetchMediaReviews";
 import { usePostMediaReview } from "../hooks/usePostMediaReview";
+import { PageSuccessMessage } from "../components/PageSuccessMessage";
+import { PageErrorMessage } from "../components/PageErrorMessage";
+import { NoReviewsMessage } from "../components/NoReviewsMessage";
+import { MediaReviewsSliderErrorMessage } from "../components/MediaReviewsSliderErrorMessage";
+import { ReviewForm } from "../components/ReviewForm";
 
 export const Details = () => {
+  const { id } = useParams();
   const location = useLocation();
   const media = location.pathname.split("/")[1];
-  const { id } = useParams();
   const [formTitle, setFormTitle] = useState("");
   const [formReview, setFormReview] = useState("");
   const detailsQuery = useFetchMediaDetails(media, id);
@@ -45,35 +49,21 @@ export const Details = () => {
       )}
 
       {successMessage.isOpen && (
-        <motion.div
-          initial={{ y: "-100%" }}
-          animate={{ y: 0 }}
-          transition={{ stiffness: 0 }}
-          className=" fixed top-0 w-full z-40 bg-green-500 flex justify-center text-lg text-white font-semibold py-3"
-        >
-          {successMessage.message}
-        </motion.div>
+        <PageSuccessMessage message={successMessage.message} />
       )}
 
       {errorMessage.isOpen && (
-        <motion.div
-          initial={{ y: "-100%" }}
-          animate={{ y: 0 }}
-          transition={{ stiffness: 0 }}
-          className=" fixed top-0 w-full z-40 bg-red-500 flex justify-center text-lg text-white font-semibold py-3"
-        >
-          {errorMessage.message}
-        </motion.div>
+        <PageErrorMessage message={errorMessage.message} />
       )}
 
       <main className=" min-h-screen bg-[#F5F5F5] pt-28 p-5">
         {detailsQuery.isSuccess && (
           <>
             <div className=" w-full max-w-325 mx-auto space-y-20">
-              <section>
+              <section className=" min-h-100 relative">
                 <div className=" flex flex-col items-center gap-10 lg:flex-row lg:items-start lg:justify-between">
                   <div className=" w-full max-w-100 lg:min-w-100">
-                    <img src={poster} alt="" className=" w-full" />
+                    <img src={poster} alt={title} className=" w-full" />
                   </div>
 
                   <div className=" flex flex-col items-center gap-4 lg:items-start">
@@ -100,17 +90,9 @@ export const Details = () => {
                     isLoading={reviewsQuery.isLoading}
                   />
 
-                  {reviewsQuery.data?.length === 0 && (
-                    <div className=" font-inter font-medium min-h-62.5 border border-gray-200 flex items-center justify-center text-gray-500 text-2xl">
-                      No Reviews
-                    </div>
-                  )}
+                  {reviewsQuery.data?.length === 0 && <NoReviewsMessage />}
 
-                  {reviewsQuery.isError && (
-                    <div className=" font-inter font-medium min-h-62.5 border border-gray-200 flex items-center justify-center text-gray-500 text-2xl">
-                      Error getting reviews
-                    </div>
-                  )}
+                  {reviewsQuery.isError && <MediaReviewsSliderErrorMessage />}
                 </div>
               </section>
 
@@ -119,37 +101,17 @@ export const Details = () => {
                   Leave a review
                 </h2>
 
-                <form
-                  className=" max-w-125 space-y-2"
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    mutation.mutate();
-                  }}
-                >
-                  <input
-                    type="text"
-                    className=" border border-gray-200 w-full p-2 outline-none"
-                    placeholder="Title"
-                    maxLength={40}
-                    onChange={(e) => setFormTitle(e.target.value)}
-                  />
-                  <textarea
-                    name="review"
-                    id="review"
-                    rows={10}
-                    className=" border border-gray-200 w-full p-2 outline-none resize-none"
-                    placeholder="What are your thoughts on this film?"
-                    onChange={(e) => setFormReview(e.target.value)}
-                    maxLength={1000}
-                  ></textarea>
-
-                  <button
-                    disabled={reviewsQuery.isLoading}
-                    className=" font-geologica tracking-wider w-full text-center border border-gray-200 py-3 hover:bg-black hover:text-white duration-150 rounded-sm font-medium"
-                  >
-                    Add Review
-                  </button>
-                </form>
+                <div className=" max-w-125">
+                  <ReviewForm
+                    getTitleEvent={(e) => setFormTitle(e.target.value)}
+                    getReviewEvent={(e) => setFormReview(e.target.value)}
+                    onSubmitEvent={(e) => {
+                      e.preventDefault();
+                      mutation.mutate();
+                    }}
+                    isButtonDisabled={reviewsQuery.isLoading}
+                  ></ReviewForm>
+                </div>
               </section>
             </div>
           </>
