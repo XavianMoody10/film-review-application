@@ -2,13 +2,23 @@ import { useLocation, useParams } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getMediaDetails } from "../services/details.services";
 import { MdErrorOutline as ErrorIcon } from "react-icons/md";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getMediaReviews, postMediaReview } from "../services/reviews.services";
 import { ReviewsSlider } from "../components/ReviewsSlider";
 import { MediaSliderLoadingOverlay } from "../components/MediaSliderLoadingOverlay";
 import { ClipLoader } from "react-spinners";
+import { motion } from "motion/react";
 
 export const Details = () => {
+  const [successMessage, setSuccessMessage] = useState({
+    isOpen: false,
+    message: "",
+  });
+  const [errorMessage, setErrorMessage] = useState({
+    isOpen: false,
+    message: "",
+  });
+
   const queryClient = useQueryClient();
 
   const location = useLocation();
@@ -44,12 +54,33 @@ export const Details = () => {
       ),
     onSuccess: (data) => {
       queryClient.setQueryData(["reviews", media, id], data);
+      setSuccessMessage({ isOpen: true, message: "Review succesfully added" });
     },
     onError: (error) => {
-      console.log(error.message);
+      setErrorMessage({ isOpen: true, message: error.message });
     },
     onSettled: () => {
-      console.log("Finished");
+      if (successMessage.isOpen) {
+        setTimeout(
+          () =>
+            setSuccessMessage({
+              isOpen: false,
+              message: "",
+            }),
+          5000
+        );
+      }
+
+      if (errorMessage.isOpen) {
+        setTimeout(
+          () =>
+            setErrorMessage({
+              isOpen: false,
+              message: "",
+            }),
+          5000
+        );
+      }
     },
   });
 
@@ -68,6 +99,28 @@ export const Details = () => {
         <div className=" fixed top-0 left-0 bottom-0 right-0 bg-black/15 z-30 flex items-center justify-center">
           <ClipLoader size={30} color="white" />
         </div>
+      )}
+
+      {successMessage.isOpen && (
+        <motion.div
+          initial={{ y: "-100%" }}
+          animate={{ y: 0 }}
+          transition={{ stiffness: 0 }}
+          className=" fixed top-0 w-full z-40 bg-green-500 flex justify-center text-lg text-white font-semibold py-3"
+        >
+          {successMessage.message}
+        </motion.div>
+      )}
+
+      {errorMessage.isOpen && (
+        <motion.div
+          initial={{ y: "-100%" }}
+          animate={{ y: 0 }}
+          transition={{ stiffness: 0 }}
+          className=" fixed top-0 w-full z-40 bg-red-500 flex justify-center text-lg text-white font-semibold py-3"
+        >
+          {errorMessage.message}
+        </motion.div>
       )}
 
       <main className=" min-h-screen bg-[#F5F5F5] pt-28 p-5">
@@ -134,6 +187,7 @@ export const Details = () => {
                     type="text"
                     className=" border border-gray-200 w-full p-2 outline-none"
                     placeholder="Title"
+                    maxLength={40}
                     ref={titleInputRef}
                   />
                   <textarea
@@ -143,6 +197,7 @@ export const Details = () => {
                     className=" border border-gray-200 w-full p-2 outline-none resize-none"
                     placeholder="What are your thoughts on this film?"
                     ref={textAreaRef}
+                    maxLength={1000}
                   ></textarea>
 
                   <button

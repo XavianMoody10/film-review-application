@@ -17,7 +17,7 @@ export async function getMediaReviews(media, mediaId) {
   }
 }
 
-export async function postMediaReview(formData, meda, mediaId) {
+export async function postMediaReview(formData, media, mediaId) {
   const { title, review, rating } = formData;
 
   if (!title) {
