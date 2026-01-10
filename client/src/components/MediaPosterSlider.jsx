@@ -13,9 +13,9 @@ export const MediaPosterSlider = ({ event, media, listValue }) => {
     rootMargin: "0px 0px 500px 0px",
   });
 
-  const query = event(listValue, inView);
+  const query = event(listValue, inView, 1);
 
-  const slides = query.data?.results.map((slide) => {
+  const slides = query.data?.results?.map((slide) => {
     return (
       <SwiperSlide key={slide.id}>
         <Link to={`/${media}/details/${slide.id}`}>

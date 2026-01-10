@@ -33,7 +33,7 @@ export const Details = () => {
 
   const data = detailsQuery.data;
   const poster = `https://image.tmdb.org/t/p/original${data?.poster_path}`;
-  const title = data?.original_title;
+  const title = data?.original_title || data?.name;
   const overview = data?.overview;
 
   useEffect(() => {

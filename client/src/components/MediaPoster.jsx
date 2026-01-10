@@ -9,6 +9,7 @@ export const MediaPoster = ({ original_title, poster_path }) => {
   const { ref, inView } = useInView({
     threshold: 0.4,
     triggerOnce: true,
+    rootMargin: "0px 400px 400px 0px",
   });
 
   const poster = `https://image.tmdb.org/t/p/original${poster_path}`;

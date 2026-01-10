@@ -1,12 +1,12 @@
 import axios from "axios";
 
-export async function getMovieCollectionByList(listValueStr) {
+export async function getMovieCollectionByList(listValueStr, page) {
   if (!listValueStr) {
     throw new Error("listValueStr is undefined");
   }
 
   try {
-    const url = `https://localhost:3001/movies/${listValueStr}`;
+    const url = `https://localhost:3001/movies/${listValueStr}/${page}`;
     const headers = {
       accept: "application/json",
       Authorization: import.meta.env.API_ECRET,
