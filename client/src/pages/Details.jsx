@@ -1,88 +1,31 @@
 import { useLocation, useParams } from "react-router-dom";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getMediaDetails } from "../services/details.services";
 import { MdErrorOutline as ErrorIcon } from "react-icons/md";
-import { useEffect, useRef, useState } from "react";
-import { getMediaReviews, postMediaReview } from "../services/reviews.services";
+import { useEffect, useState } from "react";
 import { ReviewsSlider } from "../components/ReviewsSlider";
 import { MediaSliderLoadingOverlay } from "../components/MediaSliderLoadingOverlay";
 import { ClipLoader } from "react-spinners";
 import { motion } from "motion/react";
+import { useFetchMediaDetails } from "../hooks/useFetchMediaDetails";
+import { useFetchMediaReviews } from "../hooks/useFetchMediaReviews";
+import { usePostMediaReview } from "../hooks/usePostMediaReview";
 
 export const Details = () => {
-  const [successMessage, setSuccessMessage] = useState({
-    isOpen: false,
-    message: "",
-  });
-  const [errorMessage, setErrorMessage] = useState({
-    isOpen: false,
-    message: "",
-  });
-
-  const queryClient = useQueryClient();
-
   const location = useLocation();
   const media = location.pathname.split("/")[1];
   const { id } = useParams();
-  const textAreaRef = useRef(null);
-  const titleInputRef = useRef(null);
-
-  const detailsQuery = useQuery({
-    queryKey: [media, id],
-    queryFn: () => getMediaDetails(media, id),
-    retry: false,
-    staleTime: 15 * 60 * 1000,
-  });
-
-  const reviewsQuery = useQuery({
-    queryKey: ["reviews", media, id],
-    queryFn: () => getMediaReviews(media, id),
-    retry: false,
-    staleTime: 15 * 60 * 1000,
-  });
-
-  const mutation = useMutation({
-    mutationFn: () =>
-      postMediaReview(
-        {
-          title: titleInputRef.current.value,
-          review: textAreaRef.current.value,
-          rating: 3.5,
-        },
-        media,
-        id
-      ),
-    onSuccess: (data) => {
-      queryClient.setQueryData(["reviews", media, id], data);
-      setSuccessMessage({ isOpen: true, message: "Review succesfully added" });
-    },
-    onError: (error) => {
-      setErrorMessage({ isOpen: true, message: error.message });
-    },
-    onSettled: () => {
-      if (successMessage.isOpen) {
-        setTimeout(
-          () =>
-            setSuccessMessage({
-              isOpen: false,
-              message: "",
-            }),
-          5000
-        );
-      }
-
-      if (errorMessage.isOpen) {
-        setTimeout(
-          () =>
-            setErrorMessage({
-              isOpen: false,
-              message: "",
-            }),
-          5000
-        );
-      }
-    },
-  });
+  const [formTitle, setFormTitle] = useState("");
+  const [formReview, setFormReview] = useState("");
+  const detailsQuery = useFetchMediaDetails(media, id);
+  const reviewsQuery = useFetchMediaReviews(media, id);
+  const { mutation, successMessage, errorMessage } = usePostMediaReview(
+    media,
+    id,
+    {
+      title: formTitle,
+      review: formReview,
+      rating: 3.5,
+    }
+  );
 
   const data = detailsQuery.data;
   const poster = `https://image.tmdb.org/t/p/original${data?.poster_path}`;
@@ -188,7 +131,7 @@ export const Details = () => {
                     className=" border border-gray-200 w-full p-2 outline-none"
                     placeholder="Title"
                     maxLength={40}
-                    ref={titleInputRef}
+                    onChange={(e) => setFormTitle(e.target.value)}
                   />
                   <textarea
                     name="review"
@@ -196,7 +139,7 @@ export const Details = () => {
                     rows={10}
                     className=" border border-gray-200 w-full p-2 outline-none resize-none"
                     placeholder="What are your thoughts on this film?"
-                    ref={textAreaRef}
+                    onChange={(e) => setFormReview(e.target.value)}
                     maxLength={1000}
                   ></textarea>
 
