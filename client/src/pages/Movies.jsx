@@ -27,7 +27,7 @@ export const Movies = () => {
 
           <section className=" space-y-7">
             <Link
-              to={"/movies/collection/now_playing?page=1"}
+              to={"/movies/collection/now_playing"}
               className=" w-fit block hover:underline"
             >
               <h2 className=" font-inter font-extrabold text-2xl sm:text-3xl">

@@ -1,11 +1,4 @@
-import {
-  Link,
-  useLocation,
-  useParams,
-  useSearchParams,
-} from "react-router-dom";
-import { useFetchTVCollectionByList } from "../hooks/useFetchTVCollectionByList";
-import { useFetchMoviesCollectionByList } from "../hooks/useFetchMoviesCollectionByList";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { AnimatePresence, motion } from "motion/react";
 import { useInfiniteQuery } from "@tanstack/react-query";
@@ -13,26 +6,25 @@ import { getMovieCollectionByList } from "../services/movies.services";
 import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
 import { MediaPoster } from "../components/MediaPoster";
+import { MdErrorOutline as ErrorIcon } from "react-icons/md";
 
 export const Collection = () => {
   const location = useLocation();
   const { list } = useParams();
   const media = location.pathname.split("/")[1];
-  const [searchParams, setSearchParams] = useSearchParams();
-  const page = Number(searchParams.get("page"));
-  const { ref, inView, entry } = useInView({
+  const { ref, inView } = useInView({
     threshold: 0.4,
     triggerOnce: true,
   });
+
+  useEffect(() => {
+    scrollTo(0, 0);
+  }, []);
 
   async function fetchCollection({ pageParam }) {
     const res = await getMovieCollectionByList(list, pageParam);
     return res;
   }
-
-  // const query =
-  //   (media === "movies" && useFetchMoviesCollectionByList(list, true, page)) ||
-  //   (media === "tv" && useFetchTVCollectionByList(list, true, page));
 
   const query = useInfiniteQuery({
     queryKey: [media, list],
@@ -45,6 +37,7 @@ export const Collection = () => {
         return lastPage.page + 1;
       }
     },
+    retry: false,
   });
 
   useEffect(() => {
@@ -54,12 +47,13 @@ export const Collection = () => {
   }, [inView]);
 
   const collection = query.data?.pages.map((page) => {
-    console.log(page);
-
     return page.results.map((film) => {
       return (
         <Link key={film.id} to={`/${media}/details/${film.id}`}>
-          <MediaPoster poster_path={film.poster_path}></MediaPoster>
+          <MediaPoster
+            original_title={film.original_title || film.title}
+            poster_path={film.poster_path}
+          />
         </Link>
       );
     });
@@ -82,14 +76,24 @@ export const Collection = () => {
       </AnimatePresence>
 
       <main className="  min-h-screen bg-[#F5F5F5] pt-24 px-5">
-        <div className="  max-w-400 mx-auto">
+        <div className=" space-y-2  max-w-400 mx-auto">
           <div className=" grid grid-cols-1 gap-5 min-[500px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
             {collection}
           </div>
 
-          {query.hasNextPage && (
+          {query.hasNextPage && !query.isError && (
             <div ref={ref} className=" h-12.5 flex items-center justify-center">
               <ClipLoader size={30} />
+            </div>
+          )}
+
+          {query.hasNextPage && query.isError && (
+            <div
+              ref={ref}
+              className=" h-12.5 flex items-center justify-center gap-2 bg-red-600 text-white text-lg font-medium rounded-md"
+            >
+              Error occured getting loading data
+              <ErrorIcon size={30} />
             </div>
           )}
         </div>

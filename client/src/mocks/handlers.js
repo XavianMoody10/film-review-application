@@ -21,7 +21,13 @@ export const handlers = [
 
       const data = nowPlayingMoviesMockdata.find((d) => d.page == page);
       return HttpResponse.json(data);
-      // return HttpResponse.json(null, { status: 400 });
+
+      // if (page == 2) {
+      //   return HttpResponse.json(null, { status: 400 });
+      // } else {
+      //   const data = nowPlayingMoviesMockdata.find((d) => d.page == page);
+      //   return HttpResponse.json(data);
+      // }
     }
   ),
 

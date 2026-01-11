@@ -15,17 +15,7 @@ export const usePostMediaReview = (media, mediaId, formData) => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: () =>
-      postMediaReview(
-        // {
-        //   title: titleInputRef.current.value,
-        //   review: textAreaRef.current.value,
-        //   rating: 3.5,
-        // },
-        formData,
-        media,
-        mediaId
-      ),
+    mutationFn: () => postMediaReview(formData, media, mediaId),
     onSuccess: (data) => {
       queryClient.setQueryData(["reviews", media, mediaId], data);
       setSuccessMessage({ isOpen: true, message: "Review succesfully added" });

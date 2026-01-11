@@ -4,7 +4,8 @@ import { useInView } from "react-intersection-observer";
 import { ClipLoader } from "react-spinners";
 
 export const MediaPoster = ({ original_title, poster_path }) => {
-  const [imageIsLoaded, setImageILoaded] = useState(false);
+  const [imageIsLoaded, setImageIsLoaded] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const { ref, inView } = useInView({
     threshold: 0.4,
@@ -13,6 +14,7 @@ export const MediaPoster = ({ original_title, poster_path }) => {
   });
 
   const poster = `https://image.tmdb.org/t/p/original${poster_path}`;
+  const placeHolder = "https://placehold.co/600x900";
 
   return (
     <div
@@ -38,14 +40,28 @@ export const MediaPoster = ({ original_title, poster_path }) => {
       <motion.div
         initial={{ opacity: 0 }}
         whileHover={{ opacity: 1 }}
-        className=" absolute top-0 left-0 bottom-0 right-0 bg-black/55"
-      />
+        className=" absolute top-0 left-0 bottom-0 right-0 bg-black/70 flex items-center justify-center text-white text-center text-xl font-inter font-medium"
+      >
+        {original_title}
+      </motion.div>
 
-      <img
-        src={inView ? poster : null}
-        width={"100%"}
-        onLoad={() => setImageILoaded(true)}
-      />
+      {inView && (
+        <img
+          src={poster}
+          hidden
+          onLoad={() => setImageIsLoaded(true)}
+          onError={() => {
+            setIsError(true);
+            setImageIsLoaded(true);
+          }}
+        />
+      )}
+
+      {!isError ? (
+        <img src={poster} alt={original_title} width={"100%"} />
+      ) : (
+        <img src={placeHolder} alt={original_title} width={"100%"} />
+      )}
     </div>
   );
 };
