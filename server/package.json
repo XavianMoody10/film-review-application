@@ -1,0 +1,24 @@
+{
+  "name": "film-review-application-server",
+  "version": "1.0.0",
+  "description": "Server for Film Review Application",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon --env-file=.env server.js",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "Xavian Moody",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "mongoose": "^9.1.5",
+    "nodemon": "^3.1.11"
+  },
+  "devDependencies": {
+    "msw": "^2.12.8"
+  }
+}
