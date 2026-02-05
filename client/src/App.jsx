@@ -7,6 +7,10 @@ import {
 import { Home } from "./pages/Home/Home";
 import { Login } from "./pages/Login/Login";
 import { Signup } from "./pages/Signup/Signup";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+// Create a client
+const queryClient = new QueryClient();
 
 const App = () => {
   // All routes (React Router)
@@ -19,7 +23,11 @@ const App = () => {
       </Route>,
     ),
   );
-  return <RouterProvider router={router}></RouterProvider>;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router}></RouterProvider>
+    </QueryClientProvider>
+  );
 };
 
 export default App;

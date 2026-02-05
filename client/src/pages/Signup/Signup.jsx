@@ -1,11 +1,52 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Header } from "../../components/Header/Header";
 import { MainWrapper } from "../../components/MainWrapper/MainWrapper";
-import { FormInput } from "../../components/FormInput/FormInput";
-import { FormButton } from "../../components/FormButton/FormButton";
 import { SignupForm } from "../../components/SignupForm/SignupForm";
+import { useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 export const Signup = () => {
+  const navigate = useNavigate();
+
+  async function checkIfUserIsAuthenticated() {
+    try {
+      const response = await fetch(
+        "http://localhost:3000/authentication/isauthenticated",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        },
+      );
+
+      if (!response.ok) {
+        const data = await response.text();
+        throw Error(data);
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  const query = useQuery({
+    queryKey: ["user"],
+    queryFn: checkIfUserIsAuthenticated,
+    gcTime: 0,
+    staleTime: 0,
+    retry: false,
+  });
+
+  useEffect(() => {
+    if (query.data === true) {
+      navigate("/");
+    }
+  }, [query.data]);
+
   return (
     <>
       <Header />
