@@ -22,13 +22,14 @@ router.post("/signup", async (req, res) => {
       throw new Error("Please enter a password");
     }
 
-    const doc = await User.create({ ...data });
+    await User.create({ ...data });
+    const result = await User.findOne({ email }).select("-password -__v");
 
     // Log the user in
-    req.logIn(doc, (err) => {
+    req.logIn(result, (err) => {
       if (err) return next(err);
 
-      return res.json(doc);
+      return res.json(result);
     });
 
     // return res.json(doc);
@@ -52,8 +53,20 @@ router.post("/login", async (req, res, next) => {
   })(req, res, next);
 });
 
-export default router;
+router.post("/logout", async (req, res) => {
+  req.logOut((err) => {
+    if (err) {
+      return res.status(400).json("Logout Error");
+    }
+
+    return res.json("Logout Successful");
+  });
+});
 
 router.get("/isauthenticated", (req, res) => {
-  return res.status(200).send(req.isAuthenticated());
+  return res
+    .status(200)
+    .json({ isAuthenticated: req.isAuthenticated(), user: req.user });
 });
+
+export default router;

@@ -10,14 +10,17 @@ passport.use(
       if (!user) return done(null, false, { message: "Incorrect username." });
       if (user.password !== password)
         return done(null, false, { message: "Incorrect password." });
-      return done(null, user);
+      const result = await User.findOne({ email: username }).select(
+        "-password -__v",
+      );
+      return done(null, result);
     },
   ),
 );
 
 passport.serializeUser((user, done) => done(null, user.id));
-passport.deserializeUser((id, done) => {
-  const user = User.findById(id);
+passport.deserializeUser(async (id, done) => {
+  const user = await User.findById(id).select("-password -__v");
   done(null, user);
 });
 

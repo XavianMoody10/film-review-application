@@ -4,12 +4,15 @@ import { FormInput } from "../FormInput/FormInput";
 import { useMutation } from "@tanstack/react-query";
 import { FormErrorMessage } from "../FormErrorMessage/FormErrorMessage";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../features/user/userSlice";
 
 export const SignupForm = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const dipatch = useDispatch();
 
   // Create account via server
   async function createAccountRequest() {
@@ -54,7 +57,7 @@ export const SignupForm = () => {
   const mutate = useMutation({
     mutationFn: createAccountRequest,
     onSuccess: (data) => {
-      console.log(data);
+      dipatch(loginUser(data));
       navigate("/");
     },
     onError: (error) => {

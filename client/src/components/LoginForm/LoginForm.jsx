@@ -4,11 +4,14 @@ import { FormErrorMessage } from "../FormErrorMessage/FormErrorMessage";
 import { FormInput } from "../FormInput/FormInput";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../features/user/userSlice";
 
 export const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const dipatch = useDispatch();
 
   // Create account via server
   async function accountLoginRequest() {
@@ -49,7 +52,7 @@ export const LoginForm = () => {
   const mutate = useMutation({
     mutationFn: accountLoginRequest,
     onSuccess: (data) => {
-      console.log(data);
+      dipatch(loginUser(data));
       navigate(`/`);
     },
     onError: (error) => {

@@ -4,6 +4,7 @@ import { MainWrapper } from "../../components/MainWrapper/MainWrapper";
 import { SignupForm } from "../../components/SignupForm/SignupForm";
 import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { loginUser } from "../../features/user/userSlice";
 
 export const Signup = () => {
   const navigate = useNavigate();
@@ -42,10 +43,10 @@ export const Signup = () => {
   });
 
   useEffect(() => {
-    if (query.data === true) {
+    if (query.data?.isAuthenticated === true) {
       navigate("/");
     }
-  }, [query.data]);
+  }, [query.data?.isAuthenticated]);
 
   return (
     <>

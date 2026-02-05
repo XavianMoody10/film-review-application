@@ -4,9 +4,12 @@ import { MainWrapper } from "../../components/MainWrapper/MainWrapper";
 import { LoginForm } from "../../components/LoginForm/LoginForm";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../features/user/userSlice";
 
 export const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   async function checkIfUserIsAuthenticated() {
     try {
@@ -42,10 +45,10 @@ export const Login = () => {
   });
 
   useEffect(() => {
-    if (query.data === true) {
+    if (query.data?.isAuthenticated === true) {
       navigate("/");
     }
-  }, [query.data]);
+  }, [query.data?.isAuthenticated]);
 
   return (
     <>
