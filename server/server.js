@@ -1,10 +1,11 @@
 import express from "express";
 import cors from "cors";
+import passport from "passport";
+import session from "express-session";
 import { connectToDatabase } from "./src/lib/mongodb.js";
 import { initiateMockServiceWorker } from "./src/mocks/node.js";
 import authenticationRouter from "./src/routes/authentication.route.js";
-import passport from "passport";
-import session from "express-session";
+import moviesRouter from "./src/routes/movies.route.js";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -34,6 +35,7 @@ app.use(passport.session());
 
 // Routes
 app.use("/authentication", authenticationRouter);
+app.use("/movies", moviesRouter);
 
 // Server
 app.listen(PORT, async () => {

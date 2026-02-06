@@ -49,7 +49,7 @@ export const Header = () => {
   });
 
   return (
-    <header className=" fixed top-0 w-full flex items-center justify-between py-1">
+    <header className=" fixed top-0 w-full flex items-center justify-between py-3 z-20 bg-black/5 backdrop-blur-lg rounded-xl">
       <div className=" flex items-center justify-between mx-auto w-full pr-3">
         <Hamburger size={23} color="white" />
         {user._id ? (

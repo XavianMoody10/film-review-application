@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { loginUser } from "../../features/user/userSlice";
+import { MediaBackdropSlider } from "../../components/MediaBackdropSlider/MediaBackdropSlider";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -53,7 +54,9 @@ export const Home = () => {
   return (
     <>
       <Header />
-      <MainWrapper />
+      <MainWrapper>
+        <MediaBackdropSlider />
+      </MainWrapper>
     </>
   );
 };
