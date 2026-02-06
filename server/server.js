@@ -9,6 +9,8 @@ import session from "express-session";
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+app.set("trust proxy", true);
+
 // Middleware
 app.use(express.json());
 app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
@@ -20,9 +22,9 @@ app.use(
     saveUninitialized: false,
     rolling: true,
     cookie: {
-      secure: process.env.NODE_ENV !== "development" ? true : false,
       httpOnly: true,
-      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
     },
   }),
 );
