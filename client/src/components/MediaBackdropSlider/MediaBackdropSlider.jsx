@@ -4,7 +4,11 @@ import { useQuery } from "@tanstack/react-query";
 import { ClipLoader } from "react-spinners";
 import { MdErrorOutline as ErrorIcon } from "react-icons/md";
 
-export const MediaBackdropSlider = ({ list = "now_playing", page = "1" }) => {
+export const MediaBackdropSlider = ({
+  list = "now_playing",
+  page = "1",
+  media = "movie",
+}) => {
   // Fetch data from api
   async function fetchMediaData() {
     const response = await fetch(
