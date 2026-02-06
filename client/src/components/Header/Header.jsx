@@ -14,7 +14,7 @@ export const Header = () => {
   async function logout() {
     try {
       const response = await fetch(
-        "http://localhost:3000/authentication/logout",
+        `${import.meta.env.VITE_SERVER_URL}/authentication/logout`,
         {
           method: "POST",
           headers: {

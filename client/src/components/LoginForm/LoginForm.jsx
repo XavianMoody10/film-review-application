@@ -25,7 +25,7 @@ export const LoginForm = () => {
       }
 
       const response = await fetch(
-        "http://localhost:3000/authentication/login",
+        `${import.meta.env.VITE_SERVER_URL}/authentication/login`,
         {
           method: "POST",
           headers: {

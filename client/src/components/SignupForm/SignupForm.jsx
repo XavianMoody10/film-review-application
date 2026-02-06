@@ -30,7 +30,7 @@ export const SignupForm = () => {
       }
 
       const response = await fetch(
-        "http://localhost:3000/authentication/signup",
+        `${import.meta.env.VITE_SERVER_URL}/authentication/signup`,
         {
           method: "POST",
           headers: {

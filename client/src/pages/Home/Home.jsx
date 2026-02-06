@@ -13,7 +13,7 @@ export const Home = () => {
   async function checkIfUserIsAuthenticated() {
     try {
       const response = await fetch(
-        "http://localhost:3000/authentication/isauthenticated",
+        `${import.meta.env.VITE_SERVER_URL}/authentication/isauthenticated`,
         {
           method: "GET",
           headers: {

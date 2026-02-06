@@ -4,17 +4,14 @@ import { MainWrapper } from "../../components/MainWrapper/MainWrapper";
 import { LoginForm } from "../../components/LoginForm/LoginForm";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { loginUser } from "../../features/user/userSlice";
 
 export const Login = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   async function checkIfUserIsAuthenticated() {
     try {
       const response = await fetch(
-        "http://localhost:3000/authentication/isauthenticated",
+        `${import.meta.env.VITE_SERVER_URL}/authentication/isauthenticated`,
         {
           method: "GET",
           headers: {

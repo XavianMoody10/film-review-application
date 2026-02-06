@@ -4,7 +4,6 @@ import { MainWrapper } from "../../components/MainWrapper/MainWrapper";
 import { SignupForm } from "../../components/SignupForm/SignupForm";
 import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { loginUser } from "../../features/user/userSlice";
 
 export const Signup = () => {
   const navigate = useNavigate();
@@ -12,7 +11,7 @@ export const Signup = () => {
   async function checkIfUserIsAuthenticated() {
     try {
       const response = await fetch(
-        "http://localhost:3000/authentication/isauthenticated",
+        `${import.meta.env.VITE_SERVER_URL}/authentication/isauthenticated`,
         {
           method: "GET",
           headers: {
