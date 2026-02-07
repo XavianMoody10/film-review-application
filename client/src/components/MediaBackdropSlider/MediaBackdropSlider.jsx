@@ -12,7 +12,7 @@ export const MediaBackdropSlider = ({
   // Fetch data from api
   async function fetchMediaData() {
     const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}/movies/${list}/${page}`,
+      `${import.meta.env.VITE_SERVER_URL}/movies/list/${list}/${page}`,
     );
 
     if (!response.ok) {
@@ -35,6 +35,7 @@ export const MediaBackdropSlider = ({
   const slides = query.data?.results.map(
     ({ id, original_title, backdrop_path, overview }) => {
       const backdropUrl = `https://image.tmdb.org/t/p/original${backdrop_path}`;
+
       return (
         <SwiperSlide key={id}>
           <div

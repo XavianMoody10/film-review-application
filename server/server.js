@@ -6,6 +6,7 @@ import { connectToDatabase } from "./src/lib/mongodb.js";
 import { initiateMockServiceWorker } from "./src/mocks/node.js";
 import authenticationRouter from "./src/routes/authentication.route.js";
 import moviesRouter from "./src/routes/movies.route.js";
+import reviewRouter from "./src/routes/review.route.js";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -36,6 +37,7 @@ app.use(passport.session());
 // Routes
 app.use("/authentication", authenticationRouter);
 app.use("/movies", moviesRouter);
+app.use("/review", reviewRouter);
 
 // Server
 app.listen(PORT, async () => {

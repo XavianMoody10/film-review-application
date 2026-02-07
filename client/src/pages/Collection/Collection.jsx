@@ -4,12 +4,11 @@ import { MainWrapper } from "../../components/MainWrapper/MainWrapper";
 import { Link, useParams } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { useInView } from "react-intersection-observer";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { MdErrorOutline as ErrorIcon } from "react-icons/md";
 
 export const Collection = () => {
   const { media, list } = useParams();
-  const [isPageError, setIsPageError] = useState(false);
 
   const { ref, inView } = useInView({
     threshold: 0,
@@ -18,7 +17,7 @@ export const Collection = () => {
   // Fetch data from api
   async function fetchMediaData({ pageParam }) {
     const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}/${media}/${list}/${pageParam}`,
+      `${import.meta.env.VITE_SERVER_URL}/${media}/list/${list}/${pageParam}`,
     );
 
     if (!response.ok && query.data?.pages.length >= 1) {
@@ -86,7 +85,7 @@ export const Collection = () => {
             </div>
           )}
 
-          {query.isSuccess && query.hasNextPage && !isPageError && (
+          {query.isSuccess && query.hasNextPage && (
             <div ref={ref} className=" flex justify-center">
               <ClipLoader color="white" />
             </div>

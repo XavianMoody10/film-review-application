@@ -15,7 +15,7 @@ export const MediaPosterSlider = ({
   // Fetch data from api
   async function fetchMediaData() {
     const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}/${media}/${list}/${page}`,
+      `${import.meta.env.VITE_SERVER_URL}/${media}/list/${list}/${page}`,
     );
 
     if (!response.ok) {

@@ -23,7 +23,7 @@ export const handlers = [
         // return HttpResponse.json(nowPlayingMoviesPage2Mockdata);
       }
 
-      return HttpResponse.json(null, { status: 400 });
+      // return HttpResponse.json(null, { status: 400 });
     },
   ),
 
