@@ -11,6 +11,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Provider } from "react-redux";
 import store from "./app/store";
 import { Details } from "./pages/Details/Details";
+import { Collection } from "./pages/Collection/Collection";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -24,7 +25,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/details/:media/:id" element={<Details />} />
-        <Route path="/collection/:media/:list" element={<Details />} />
+        <Route path="/collection/:media/:list" element={<Collection />} />
       </Route>,
     ),
   );

@@ -346,6 +346,6 @@ export default {
       vote_count: 266,
     },
   ],
-  total_pages: 210,
+  total_pages: 2,
   total_results: 4199,
 };

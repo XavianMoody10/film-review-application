@@ -10,16 +10,16 @@ import { Link } from "react-router-dom";
 export const MediaPosterSlider = ({
   list = "now_playing",
   page = "1",
-  media = "movie",
+  media = "movies",
 }) => {
   // Fetch data from api
   async function fetchMediaData() {
     const response = await fetch(
-      `http://localhost:3000/movies/${list}/${page}`,
+      `${import.meta.env.VITE_SERVER_URL}/${media}/${list}/${page}`,
     );
 
     if (!response.ok) {
-      throw new Error("Error getting movies now playing");
+      throw new Error("Error getting media collection");
     }
 
     const data = await response.json();

@@ -12,7 +12,7 @@ export const MediaBackdropSlider = ({
   // Fetch data from api
   async function fetchMediaData() {
     const response = await fetch(
-      `http://localhost:3000/movies/${list}/${page}`,
+      `${import.meta.env.VITE_SERVER_URL}/movies/${list}/${page}`,
     );
 
     if (!response.ok) {

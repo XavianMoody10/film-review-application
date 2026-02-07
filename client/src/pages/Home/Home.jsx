@@ -66,7 +66,7 @@ export const Home = () => {
               </h2>
 
               <Link
-                to={"/collection/movie/now_playing"}
+                to={"/collection/movies/now_playing"}
                 className=" text-white text-lg font-semibold hover:underline"
               >
                 View All

@@ -1,3 +1,11 @@
+import { Header } from "../../components/Header/Header";
+import { MainWrapper } from "../../components/MainWrapper/MainWrapper";
+
 export const Details = () => {
-  return <div>Details</div>;
+  return (
+    <>
+      <Header></Header>
+      <MainWrapper></MainWrapper>
+    </>
+  );
 };
