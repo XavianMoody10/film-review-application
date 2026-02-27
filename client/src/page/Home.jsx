@@ -1,6 +1,4 @@
 import { Squash as Hamburger } from "hamburger-react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { MdErrorOutline as ErrorIcon } from "react-icons/md";
