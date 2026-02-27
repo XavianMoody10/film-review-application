@@ -4,6 +4,7 @@ import trendingAllMockdata from "./mockdata/trendingAll.mockdata";
 import movieDetailMockdata from "./mockdata/movieDetail.mockdata";
 import movieCreditsMockdata from "./mockdata/movieCredits.mockdata";
 import movieImagesMockdata from "./mockdata/movieImages.mockdata";
+import movieReviewsMockdata from "./mockdata/movieReviews.mockdata";
 
 export const handlers = [
   http.get("http://localhost:3000/trending/all", async () => {
@@ -15,7 +16,7 @@ export const handlers = [
   http.get(
     "http://localhost:3000/details/movie/:movie_id",
     async ({ params }) => {
-      await delay(3000);
+      // await delay(3000);
       const { movie_id } = params;
       console.log(movie_id);
       return HttpResponse.json(movieDetailMockdata);
@@ -48,11 +49,12 @@ export const handlers = [
   http.get(
     "http://localhost:3000/reviews/movie/:movie_id",
     async ({ params }) => {
-      await delay(5000);
+      // await delay(5000);
       const { movie_id } = params;
       console.log(movie_id);
-      // return HttpResponse.json(movieImagesMockdata);
-      return HttpResponse.json(null, { status: 404 });
+      // return HttpResponse.json(movieReviewsMockdata);
+      return HttpResponse.json([]);
+      // return HttpResponse.json(null, { status: 404 });
     },
   ),
 ];

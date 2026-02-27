@@ -3,10 +3,11 @@ import "swiper/css";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-import Hamburger from "hamburger-react";
+import { Squash as Hamburger } from "hamburger-react";
 import { AnimatePresence, motion } from "motion/react";
 import { ClipLoader } from "react-spinners";
 import { MdErrorOutline as ErrorIcon } from "react-icons/md";
+import { FaStar as RatingIcon } from "react-icons/fa6";
 
 export const Details = () => {
   const { mediaType, mediaId } = useParams();
@@ -127,6 +128,29 @@ export const Details = () => {
     }
   });
 
+  const reviewsMap = reviewsQuery.data?.map(
+    ({ id, rating, review, reviewer }) => {
+      return (
+        <SwiperSlide key={id}>
+          <div className=" bg-transparent rounded-md space-y-3">
+            <div className=" border-b border-b-gray-200 pb-2 flex items-center justify-between">
+              <span className=" text-2xl tracking-wider font-bold text-white">
+                {reviewer}
+              </span>
+
+              <div className=" flex gap-2">
+                <span className=" text-xl text-white">{rating}</span>
+                <RatingIcon size={25} color="white" />
+              </div>
+            </div>
+
+            <p className=" tracking-wider text-white">{review}</p>
+          </div>
+        </SwiperSlide>
+      );
+    },
+  );
+
   return (
     <>
       <header className=" fixed top-0 w-full px-3 py-2 z-20">
@@ -147,7 +171,7 @@ export const Details = () => {
         )}
       </AnimatePresence>
 
-      <main className="bg-linear-to-b from-black to-gray-900 min-h-screen flex items-center justify-center pt-10">
+      <main className="bg-linear-to-b from-black to-gray-900 min-h-screen flex flex-col items-center justify-center py-10">
         <div className=" w-full flex flex-col items-center justify-center gap-10 p-5 lg:flex-row lg:gap-40 lg:items-start">
           <div className=" lg:sticky lg:top-5">
             <div className=" w-full max-w-87.5 lg:w-125">
@@ -244,7 +268,9 @@ export const Details = () => {
                 </div>
 
                 <div className=" space-y-5 w-full">
-                  <h2 className=" text-white/45 text-4xl font-bold">Reviews</h2>
+                  <h2 className=" text-white/45 text-4xl font-bold">
+                    Your Review
+                  </h2>
 
                   <div className=" relative min-h-50">
                     {reviewsQuery.isLoading && (
@@ -262,10 +288,63 @@ export const Details = () => {
                       </div>
                     )}
 
-                    {reviewsQuery.isSuccess && <></>}
+                    {reviewsQuery.isSuccess && (
+                      <>
+                        <form
+                          method="post"
+                          className=" w-full"
+                          onSubmit={(e) => {
+                            e.preventDefault();
+                          }}
+                        >
+                          <textarea
+                            name=""
+                            id=""
+                            rows={10}
+                            placeholder={`What did you think of ${title || "the masterpiece"}?`}
+                            className=" border border-white w-full text-white p-5"
+                          ></textarea>
+                          <button className=" border w-full text-white font-semibold py-3 hover:bg-white hover:text-black duration-150 tracking-wider">
+                            Submit Review
+                          </button>
+                        </form>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <div className=" w-full mt-10 px-10 space-y-10">
+          <h2 className=" text-white/45 text-4xl font-bold">Reviews</h2>
+          <div className=" relative min-h-25">
+            {reviewsQuery.isLoading && (
+              <div className=" absolute top-0 right-0 left-0 bottom-0 w-full flex items-center justify-center text-white">
+                <ClipLoader color="white" />
+              </div>
+            )}
+
+            {reviewsQuery.isError && (
+              <div className=" absolute top-0 right-0 left-0 bottom-0 w-full flex flex-col items-center justify-center gap-5 z-10 text-white">
+                <span className=" text-2xl text-center font-extralight tracking-wider">
+                  {reviewsQuery.error.message}
+                </span>
+                <ErrorIcon size={50} />
+              </div>
+            )}
+
+            {reviewsQuery.isSuccess && reviewsQuery.data.length === 0 && (
+              <div className=" absolute top-0 right-0 left-0 bottom-0 w-full flex flex-col items-center justify-center gap-5 z-10 text-white">
+                <span className=" text-2xl text-center font-extralight tracking-wider">
+                  No Reviews
+                </span>
+              </div>
+            )}
+
+            <div className=" grid gap-x-10 gap-y-20 min-[800px]:grid-cols-2 xl:grid-cols-3">
+              {reviewsMap}
             </div>
           </div>
         </div>
