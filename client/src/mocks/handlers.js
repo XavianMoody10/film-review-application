@@ -30,8 +30,8 @@ export const handlers = [
       await delay(8000);
       const { movie_id } = params;
       console.log(movie_id);
-      // return HttpResponse.json(movieCreditsMockdata);
-      return HttpResponse.json(null, { status: 404 });
+      return HttpResponse.json(movieCreditsMockdata);
+      // return HttpResponse.json(null, { status: 404 });
     },
   ),
 
@@ -41,8 +41,8 @@ export const handlers = [
       await delay(5000);
       const { movie_id } = params;
       console.log(movie_id);
-      // return HttpResponse.json(movieImagesMockdata);
-      return HttpResponse.json(null, { status: 404 });
+      return HttpResponse.json(movieImagesMockdata);
+      // return HttpResponse.json(null, { status: 404 });
     },
   ),
 
@@ -52,8 +52,8 @@ export const handlers = [
       // await delay(5000);
       const { movie_id } = params;
       console.log(movie_id);
-      // return HttpResponse.json(movieReviewsMockdata);
-      return HttpResponse.json([]);
+      return HttpResponse.json(movieReviewsMockdata);
+      // return HttpResponse.json([]);
       // return HttpResponse.json(null, { status: 404 });
     },
   ),
