@@ -12,7 +12,7 @@ export const Explore = () => {
   const sideNavigationContext = useContext(SideNavigationContext);
 
   async function fetchGenres() {
-    const url = `http://localhost:3000/genres/${mediaType}`;
+    const url = `${import.meta.env.VITE_SERVER_ENDPOINT}/genres/${mediaType}`;
 
     try {
       const response = await axios.get(url);
@@ -30,7 +30,7 @@ export const Explore = () => {
   });
 
   const genresSlidersMap = genresQuery.data?.genres?.map(({ id, name }) => {
-    const endpoint = `http://localhost:3000/discover/${mediaType}/${id}/1`;
+    const endpoint = `${import.meta.env.VITE_SERVER_ENDPOINT}/discover/${mediaType}/${id}/1`;
 
     return (
       <div className=" space-y-3" key={id}>
