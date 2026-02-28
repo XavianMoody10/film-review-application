@@ -107,11 +107,9 @@ export const Details = () => {
                   </h2>
 
                   <div className=" relative min-h-50">
-                    {reviewsQuery.isSuccess && (
-                      <MediaReviewForm
-                        mediaTitle={title || original_name || original_title}
-                      />
-                    )}
+                    <MediaReviewForm
+                      mediaTitle={title || original_name || original_title}
+                    />
                   </div>
                 </div>
               </div>
