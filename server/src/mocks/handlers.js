@@ -8,6 +8,8 @@ import movieReviewsMockdata from "./mockdata/movieReviews.mockdata.js";
 import tvShowDetailsMockdata from "./mockdata/tvShowDetails.mockdata.js";
 import tvShowCreditsMockdata from "./mockdata/tvShowCredits.mockdata.js";
 import tvShowImagesMockdata from "./mockdata/tvShowImages.mockdata.js";
+import moviesGenresMockdata from "./mockdata/moviesGenres.mockdata.js";
+import movieActionMockdata from "./mockdata/movieAction.mockdata.js";
 
 export const handlers = [
   http.get("https://api.themoviedb.org/3/trending/all/day", async () => {
@@ -71,6 +73,29 @@ export const handlers = [
       const { series_id } = params;
       return HttpResponse.json(tvShowImagesMockdata);
       // return HttpResponse.json(null, { status: 404 });
+    },
+  ),
+
+  http.get("https://api.themoviedb.org/3/genre/movie/list", async () => {
+    // await delay(5000);
+    return HttpResponse.json(moviesGenresMockdata);
+    // return HttpResponse.json([]);
+    // return HttpResponse.json(null, { status: 404 });
+  }),
+
+  http.get(
+    "https://api.themoviedb.org/3/discover/movie",
+    async ({ request }) => {
+      // await delay(5000);
+      const url = new URL(request.url);
+      const with_genre = url.searchParams.get("with_genre");
+
+      if (with_genre == 28) {
+        return HttpResponse.json(movieActionMockdata);
+      }
+
+      // return HttpResponse.json([]);
+      return HttpResponse.json(null, { status: 404 });
     },
   ),
 

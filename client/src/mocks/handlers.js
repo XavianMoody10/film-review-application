@@ -8,6 +8,8 @@ import movieReviewsMockdata from "./mockdata/movieReviews.mockdata";
 import tvShowDetailsMockdata from "./mockdata/tvShowDetails.mockdata";
 import tvShowCreditsMockdata from "./mockdata/tvShowCredits.mockdata";
 import tvShowImagesMockdata from "./mockdata/tvShowImages.mockdata";
+import moviesGenresMockdata from "./mockdata/moviesGenres.mockdata";
+import movieActionMockdata from "./mockdata/movieAction.mockdata";
 
 export const handlers = [
   http.get("http://localhost:3000/trending/all", async () => {
@@ -76,6 +78,28 @@ export const handlers = [
       const { series_id } = params;
       return HttpResponse.json(tvShowImagesMockdata);
       // return HttpResponse.json(null, { status: 404 });
+    },
+  ),
+
+  http.get("http://localhost:3000/genres/movie", async () => {
+    // await delay(5000);
+    console.log("Yo");
+    return HttpResponse.json(moviesGenresMockdata);
+    // return HttpResponse.json([]);
+    // return HttpResponse.json(null, { status: 404 });
+  }),
+
+  http.get(
+    "http://localhost:3000/discover/movie/:with_genre/:page",
+    async ({ params }) => {
+      // await delay(5000);
+      const { with_genre } = params;
+      if (with_genre == 28) {
+        return HttpResponse.json(movieActionMockdata);
+      }
+
+      // return HttpResponse.json([]);
+      return HttpResponse.json(null, { status: 404 });
     },
   ),
 

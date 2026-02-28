@@ -4,6 +4,8 @@ import { startMockServiceWorker } from "./src/mocks/node.js";
 import trendingRouter from "./src/routes/trending.route.js";
 import mediaRouter from "./src/routes/media.route.js";
 import reviewRouter from "./src/routes/reviews.route.js";
+import genresRouter from "./src/routes/genres.route.js";
+import discoverRouter from "./src/routes/discover.route.js";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -16,6 +18,8 @@ app.use(express.json());
 app.use("/trending", trendingRouter);
 app.use("/media", mediaRouter);
 app.use("/review", reviewRouter);
+app.use("/genres", genresRouter);
+app.use("/discover", discoverRouter);
 
 app.listen(PORT, () => {
   startMockServiceWorker();
