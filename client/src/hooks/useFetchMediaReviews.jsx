@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const useFetchMediaReviews = (mediaType, mediaId) => {
   async function fetchReviews() {
-    const url = `${import.meta.env.VITE_SERVER_ENDPOINT}/reviews/${mediaType}/${mediaId}`;
+    const url = `${import.meta.env.VITE_SERVER_ENDPOINT}/review/${mediaType}/${mediaId}`;
 
     try {
       const response = await axios.get(url);

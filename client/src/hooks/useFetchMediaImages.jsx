@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const useFetchMediaImages = (mediaType, mediaId) => {
   async function fetchImages() {
-    const url = `${import.meta.env.VITE_SERVER_ENDPOINT}/images/${mediaType}/${mediaId}`;
+    const url = `${import.meta.env.VITE_SERVER_ENDPOINT}/media/images/${mediaType}/${mediaId}`;
 
     try {
       const response = await axios.get(url);

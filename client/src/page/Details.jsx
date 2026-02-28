@@ -123,7 +123,9 @@ export const Details = () => {
           <div className=" relative min-h-25">
             {reviewsQuery.isLoading && <MediaLoadingOverlay />}
 
-            {reviewsQuery.isError && <MediaErrorMessageOverlay />}
+            {reviewsQuery.isError && (
+              <MediaErrorMessageOverlay message={reviewsQuery.error.message} />
+            )}
 
             {reviewsQuery.isSuccess && (
               <MediaReviewsGrid reviews={reviewsQuery.data} />

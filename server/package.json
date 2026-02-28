@@ -18,5 +18,8 @@
     "express": "^5.2.1",
     "mongoose": "^9.2.2",
     "nodemon": "^3.1.14"
+  },
+  "devDependencies": {
+    "msw": "^2.12.10"
   }
 }

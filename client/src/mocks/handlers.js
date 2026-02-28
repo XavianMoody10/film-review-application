@@ -17,7 +17,7 @@ export const handlers = [
   }),
 
   http.get(
-    "http://localhost:3000/details/movie/:movie_id",
+    "http://localhost:3000/media/details/movie/:movie_id",
     async ({ params }) => {
       // await delay(3000);
       const { movie_id } = params;
@@ -28,7 +28,7 @@ export const handlers = [
   ),
 
   http.get(
-    "http://localhost:3000/details/tv/:series_id",
+    "http://localhost:3000/media/details/tv/:series_id",
     async ({ params }) => {
       // await delay(3000);
       const { series_id } = params;
@@ -38,7 +38,7 @@ export const handlers = [
   ),
 
   http.get(
-    "http://localhost:3000/credits/movie/:movie_id",
+    "http://localhost:3000/media/credits/movie/:movie_id",
     async ({ params }) => {
       await delay(8000);
       const { movie_id } = params;
@@ -49,7 +49,7 @@ export const handlers = [
   ),
 
   http.get(
-    "http://localhost:3000/credits/tv/:series_id",
+    "http://localhost:3000/media/credits/tv/:series_id",
     async ({ params }) => {
       await delay(8000);
       const { series_id } = params;
@@ -59,7 +59,7 @@ export const handlers = [
   ),
 
   http.get(
-    "http://localhost:3000/images/movie/:movie_id",
+    "http://localhost:3000/media/images/movie/:movie_id",
     async ({ params }) => {
       await delay(5000);
       const { movie_id } = params;
@@ -69,15 +69,18 @@ export const handlers = [
     },
   ),
 
-  http.get("http://localhost:3000/images/tv/:series_id", async ({ params }) => {
-    await delay(5000);
-    const { series_id } = params;
-    return HttpResponse.json(tvShowImagesMockdata);
-    // return HttpResponse.json(null, { status: 404 });
-  }),
+  http.get(
+    "http://localhost:3000/media/images/tv/:series_id",
+    async ({ params }) => {
+      await delay(5000);
+      const { series_id } = params;
+      return HttpResponse.json(tvShowImagesMockdata);
+      // return HttpResponse.json(null, { status: 404 });
+    },
+  ),
 
   http.get(
-    "http://localhost:3000/reviews/movie/:movie_id",
+    "http://localhost:3000/media/reviews/movie/:movie_id",
     async ({ params }) => {
       // await delay(5000);
       const { movie_id } = params;
