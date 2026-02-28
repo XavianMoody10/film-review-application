@@ -9,7 +9,7 @@ import { AnimatePresence, motion } from "motion/react";
 export const Home = () => {
   // Fetching all trending media
   async function fetchTrendingData() {
-    const url = "http://localhost:3000/trending/all";
+    const url = `${import.meta.env.VITE_SERVER_ENDPOINT}/trending/all`;
 
     try {
       const response = await axios.get(url);
