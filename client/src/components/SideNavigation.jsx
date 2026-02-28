@@ -25,7 +25,10 @@ export const SideNavigation = () => {
 
       <nav>
         <ul className=" space-y-3">
-          <li className=" border border-white/35 flex items-center ">
+          <li
+            className=" border border-white/35 flex items-center"
+            onClick={() => sideNavigationContext.setIsOpen(false)}
+          >
             <Link
               to={"/explore/movie"}
               className=" text-white font-medium tracking-widest rounded-sm w-full flex items-center justify-between p-2 hover:bg-white hover:text-black"
@@ -36,7 +39,10 @@ export const SideNavigation = () => {
             </Link>
           </li>
 
-          <li className=" border border-white/35 flex items-center ">
+          <li
+            className=" border border-white/35 flex items-center"
+            onClick={() => sideNavigationContext.setIsOpen(false)}
+          >
             <Link
               to={"/explore/tv"}
               className=" text-white font-medium tracking-widest rounded-sm w-full flex items-center justify-between p-2 hover:bg-white hover:text-black"

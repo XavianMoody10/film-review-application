@@ -1,5 +1,4 @@
 import { useParams } from "react-router-dom";
-import { Squash as Hamburger } from "hamburger-react";
 import { useFetchMediaDetails } from "../hooks/useFetchMediaDetails";
 import { useFetchMediaCredits } from "../hooks/useFetchMediaCredits";
 import { useFetchMediaImages } from "../hooks/useFetchMediaImages";
@@ -11,9 +10,15 @@ import { MediaCastSlider } from "../components/MediaCastSlider";
 import { MediaGallerySlider } from "../components/MediaGallerySlider";
 import { MediaReviewForm } from "../components/MediaReviewForm";
 import { MediaReviewsGrid } from "../components/MediaReviewsGrid";
+import { useEffect } from "react";
 
 export const Details = () => {
   const { mediaType, mediaId } = useParams();
+
+  // Always start at the top of page when page mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   // Custom Hooks
   const detailsQuery = useFetchMediaDetails(mediaType, mediaId);
@@ -29,10 +34,6 @@ export const Details = () => {
 
   return (
     <>
-      <header className=" fixed top-0 w-full px-3 py-2 z-20">
-        <Hamburger color="white" size={20} />
-      </header>
-
       <PageLoadingOverlay isLoading={detailsQuery.isLoading} />
 
       <main className="bg-linear-to-b from-black to-gray-900 min-h-screen flex flex-col items-center justify-center py-10">

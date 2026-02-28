@@ -1,7 +1,3 @@
-import { Squash as Hamburger } from "hamburger-react";
-import { useContext } from "react";
-import { SideNavigationContext } from "../contexts/SideNavigationContext";
-import { SideNavigation } from "../components/SideNavigation";
 import { MediaBackdroplider } from "../components/MediaBackdroplider";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
@@ -9,7 +5,6 @@ import axios from "axios";
 
 export const Explore = () => {
   const { mediaType } = useParams();
-  const sideNavigationContext = useContext(SideNavigationContext);
 
   async function fetchGenres() {
     const url = `${import.meta.env.VITE_SERVER_ENDPOINT}/genres/${mediaType}`;
@@ -49,21 +44,8 @@ export const Explore = () => {
   });
 
   return (
-    <>
-      <header className=" fixed top-0 w-full px-3 py-2 z-20">
-        <Hamburger
-          color="white"
-          size={20}
-          toggle={sideNavigationContext.setIsOpen}
-          toggled={sideNavigationContext.isOpen}
-        />
-      </header>
-
-      <SideNavigation />
-
-      <main className="bg-linear-to-b from-black to-gray-900 min-h-screen pt-20 px-7">
-        <div className=" space-y-10">{genresSlidersMap}</div>
-      </main>
-    </>
+    <main className="bg-linear-to-b from-black to-gray-900 min-h-screen py-20 px-7">
+      <div className=" space-y-10">{genresSlidersMap}</div>
+    </main>
   );
 };
