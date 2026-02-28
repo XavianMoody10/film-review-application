@@ -67,7 +67,7 @@ export const Details = () => {
                   <h2 className=" text-white/45 text-4xl font-bold">Cast</h2>
 
                   <div className=" relative min-h-50">
-                    {creditsQuery.isLoading && <MediaLoadingOverlay />}
+                    <MediaLoadingOverlay isLoading={creditsQuery.isLoading} />
 
                     {creditsQuery.isError && (
                       <MediaErrorMessageOverlay
@@ -85,7 +85,7 @@ export const Details = () => {
                   <h2 className=" text-white/45 text-4xl font-bold">Gallery</h2>
 
                   <div className=" relative min-h-50">
-                    {imagesQuery.isLoading && <MediaLoadingOverlay />}
+                    <MediaLoadingOverlay isLoading={imagesQuery.isLoading} />
 
                     {imagesQuery.isError && (
                       <MediaErrorMessageOverlay
@@ -121,7 +121,7 @@ export const Details = () => {
           <h2 className=" text-white/45 text-4xl font-bold">Reviews</h2>
 
           <div className=" relative min-h-25">
-            {reviewsQuery.isLoading && <MediaLoadingOverlay />}
+            <MediaLoadingOverlay isLoading={reviewsQuery.isLoading} />
 
             {reviewsQuery.isError && (
               <MediaErrorMessageOverlay message={reviewsQuery.error.message} />

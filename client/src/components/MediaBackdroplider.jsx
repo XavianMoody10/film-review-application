@@ -61,7 +61,7 @@ export const MediaBackdroplider = ({ queryKey, endpoint, mediaType }) => {
                   className=" hover:underline"
                 >
                   {title || original_title || original_name}{" "}
-                  <span>({release_date.split("-")[0]})</span>
+                  {release_date && <span>({release_date?.split("-")[0]})</span>}
                 </Link>
               </div>
             </div>

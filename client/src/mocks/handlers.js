@@ -10,6 +10,8 @@ import tvShowCreditsMockdata from "./mockdata/tvShowCredits.mockdata";
 import tvShowImagesMockdata from "./mockdata/tvShowImages.mockdata";
 import moviesGenresMockdata from "./mockdata/moviesGenres.mockdata";
 import movieActionMockdata from "./mockdata/movieAction.mockdata";
+import tvShowsGenresMockdata from "./mockdata/tvShowsGenres.mockdata";
+import actionAndAdventureTVShowsMockdata from "./mockdata/actionAndAdventureTVShows.mockdata";
 
 export const handlers = [
   http.get("http://localhost:3000/trending/all", async () => {
@@ -89,6 +91,14 @@ export const handlers = [
     // return HttpResponse.json(null, { status: 404 });
   }),
 
+  http.get("http://localhost:3000/genres/tv", async () => {
+    // await delay(5000);
+    console.log("Yo");
+    return HttpResponse.json(tvShowsGenresMockdata);
+    // return HttpResponse.json([]);
+    // return HttpResponse.json(null, { status: 404 });
+  }),
+
   http.get(
     "http://localhost:3000/discover/movie/:with_genre/:page",
     async ({ params }) => {
@@ -96,6 +106,20 @@ export const handlers = [
       const { with_genre } = params;
       if (with_genre == 28) {
         return HttpResponse.json(movieActionMockdata);
+      }
+
+      // return HttpResponse.json([]);
+      return HttpResponse.json(null, { status: 404 });
+    },
+  ),
+
+  http.get(
+    "http://localhost:3000/discover/tv/:with_genre/:page",
+    async ({ params }) => {
+      // await delay(5000);
+      const { with_genre } = params;
+      if (with_genre == 10759) {
+        return HttpResponse.json(actionAndAdventureTVShowsMockdata);
       }
 
       // return HttpResponse.json([]);

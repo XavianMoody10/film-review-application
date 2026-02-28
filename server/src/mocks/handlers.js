@@ -10,6 +10,8 @@ import tvShowCreditsMockdata from "./mockdata/tvShowCredits.mockdata.js";
 import tvShowImagesMockdata from "./mockdata/tvShowImages.mockdata.js";
 import moviesGenresMockdata from "./mockdata/moviesGenres.mockdata.js";
 import movieActionMockdata from "./mockdata/movieAction.mockdata.js";
+import actionAndAdventureTVShowsMockdata from "./mockdata/actionAndAdventureTVShows.mockdata.js";
+import tvShowsGenresMockdata from "./mockdata/tvShowsGenres.mockdata.js";
 
 export const handlers = [
   http.get("https://api.themoviedb.org/3/trending/all/day", async () => {
@@ -83,6 +85,13 @@ export const handlers = [
     // return HttpResponse.json(null, { status: 404 });
   }),
 
+  http.get("https://api.themoviedb.org/3/genre/tv/list", async () => {
+    // await delay(5000);
+    return HttpResponse.json(moviesGenresMockdata);
+    // return HttpResponse.json([]);
+    // return HttpResponse.json(null, { status: 404 });
+  }),
+
   http.get(
     "https://api.themoviedb.org/3/discover/movie",
     async ({ request }) => {
@@ -91,13 +100,26 @@ export const handlers = [
       const with_genre = url.searchParams.get("with_genre");
 
       if (with_genre == 28) {
-        return HttpResponse.json(movieActionMockdata);
+        return HttpResponse.json(tvShowsGenresMockdata);
       }
 
       // return HttpResponse.json([]);
       return HttpResponse.json(null, { status: 404 });
     },
   ),
+
+  http.get("https://api.themoviedb.org/3/discover/tv", async ({ request }) => {
+    // await delay(5000);
+    const url = new URL(request.url);
+    const with_genre = url.searchParams.get("with_genre");
+
+    if (with_genre == 28) {
+      return HttpResponse.json(actionAndAdventureTVShowsMockdata);
+    }
+
+    // return HttpResponse.json([]);
+    return HttpResponse.json(null, { status: 404 });
+  }),
 
   // http.get(
   //   "http://localhost:3000/reviews/movie/:movie_id",
