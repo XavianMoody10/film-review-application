@@ -5,8 +5,13 @@ import { MdErrorOutline as ErrorIcon } from "react-icons/md";
 import { ClipLoader } from "react-spinners";
 import { TrendingMediaSlider } from "../components/TrendingMediaSlider";
 import { AnimatePresence, motion } from "motion/react";
+import { SideNavigation } from "../components/SideNavigation";
+import { SideNavigationContext } from "../contexts/SideNavigationContext";
+import { useContext } from "react";
 
 export const Home = () => {
+  const sideNavigationContext = useContext(SideNavigationContext);
+
   // Fetching all trending media
   async function fetchTrendingData() {
     const url = `${import.meta.env.VITE_SERVER_ENDPOINT}/trending/all`;
@@ -29,8 +34,15 @@ export const Home = () => {
   return (
     <>
       <header className=" fixed top-0 w-full px-3 py-2 z-20">
-        <Hamburger color="white" size={20} />
+        <Hamburger
+          color="white"
+          size={20}
+          toggle={sideNavigationContext.setIsOpen}
+          toggled={sideNavigationContext.isOpen}
+        />
       </header>
+
+      <SideNavigation />
 
       <main className="bg-linear-to-b from-black to-gray-900 h-screen">
         <div className=" relative">

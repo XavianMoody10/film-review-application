@@ -13,6 +13,8 @@ import {
 } from "@tanstack/react-query";
 import { Home } from "./page/Home";
 import { Details } from "./page/Details";
+import { SideNavigationProvider } from "./contexts/SideNavigationContext";
+import { Explore } from "./page/Explore";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -24,13 +26,16 @@ const App = () => {
       <Route path="/">
         <Route index element={<Home />} />
         <Route path="/details/:mediaType/:mediaId" element={<Details />} />
+        <Route path="/explore/:mediaType" element={<Explore />} />
       </Route>,
     ),
   );
 
   return (
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <SideNavigationProvider>
+        <RouterProvider router={router} />
+      </SideNavigationProvider>
     </QueryClientProvider>
   );
 };
