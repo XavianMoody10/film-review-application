@@ -32,7 +32,11 @@ export const LoginFormModal = () => {
       const data = await response.data;
       return data;
     } catch (error) {
-      throw new Error("Error logging in");
+      if (error.response.status >= 400) {
+        throw new Error(error.response.data.message);
+      }
+
+      throw new Error(error.message);
     }
   }
 
