@@ -1,7 +1,6 @@
 import {
   createBrowserRouter,
   createRoutesFromElements,
-  Outlet,
   Route,
   RouterProvider,
 } from "react-router-dom";
@@ -10,8 +9,9 @@ import { Home } from "./page/Home";
 import { Details } from "./page/Details";
 import { SideNavigationProvider } from "./contexts/SideNavigationContext";
 import { Explore } from "./page/Explore";
-import { SideNavigation } from "./components/SideNavigation";
-import { Header } from "./components/Header";
+import { AuthFormsProvider } from "./contexts/AuthFormsContext";
+import { Template } from "./templates/Template";
+import { UserProvider } from "./contexts/UserContext";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -21,15 +21,7 @@ const App = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/">
-        <Route
-          element={
-            <>
-              <Header />
-              <SideNavigation />
-              <Outlet />
-            </>
-          }
-        >
+        <Route element={<Template />}>
           <Route index element={<Home />} />
           <Route path="/details/:mediaType/:mediaId" element={<Details />} />
           <Route path="/explore/:mediaType" element={<Explore />} />
@@ -41,7 +33,11 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <SideNavigationProvider>
-        <RouterProvider router={router} />
+        <AuthFormsProvider>
+          <UserProvider>
+            <RouterProvider router={router} />
+          </UserProvider>
+        </AuthFormsProvider>
       </SideNavigationProvider>
     </QueryClientProvider>
   );

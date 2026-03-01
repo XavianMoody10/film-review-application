@@ -111,6 +111,9 @@ export const Details = () => {
                     <MediaReviewForm
                       mediaTitle={title || original_name || original_title}
                     />
+                    <div className=" absolute top-0 right-0 bottom-0 left-0 bg-gray-600/80 flex items-center justify-center text-2xl font-bold text-white">
+                      Feature Is Coming Soon
+                    </div>
                   </div>
                 </div>
               </div>
