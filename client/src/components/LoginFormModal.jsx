@@ -13,7 +13,7 @@ export const LoginFormModal = () => {
   const [password, setPassword] = useState("");
 
   async function loginHandler() {
-    const url = "http://localhost:3000/auth/login";
+    const url = `${import.meta.env.VITE_MOCK_SERVICE_WORKER}/auth/login`;
 
     if (!email) {
       throw new Error("Please enter an email");
