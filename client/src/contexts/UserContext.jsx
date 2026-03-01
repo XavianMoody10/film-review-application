@@ -8,7 +8,7 @@ export function UserProvider({ children }) {
   const [user, setUser] = useState({ _id: "", email: "" });
 
   async function checkSession() {
-    const url = `${import.meta.env.VITE_MOCK_SERVICE_WORKER}/auth/session`;
+    const url = `${import.meta.env.VITE_SERVER_ENDPOINT}/auth/session`;
     try {
       const response = await axios.get(url, { withCredentials: true });
       const data = await response.data;
