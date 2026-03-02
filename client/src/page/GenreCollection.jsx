@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { MediaPoster } from "../components/MediaPoster";
 
 export const GenreCollection = () => {
-  const { ref, inView, entry } = useInView({
+  const { ref, inView } = useInView({
     threshold: 0.5,
   });
   const { mediaType, genreId } = useParams();
@@ -16,12 +16,10 @@ export const GenreCollection = () => {
     if (inView) {
       console.log(inView);
       query.fetchNextPage();
-      // console.log("Yo");
     }
   }, [inView]);
 
   async function fetchData(page) {
-    console.log(page);
     const endpoint = `${import.meta.env.VITE_SERVER_ENDPOINT}/discover/${mediaType}/${genreId}/${page}`;
 
     try {

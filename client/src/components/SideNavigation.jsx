@@ -5,6 +5,7 @@ import { IoClose as CloseIcon } from "react-icons/io5";
 import { motion } from "motion/react";
 import { useContext } from "react";
 import { SideNavigationContext } from "../contexts/SideNavigationContext";
+import { IoHomeOutline as HomeIcon } from "react-icons/io5";
 
 export const SideNavigation = () => {
   const sideNavigationContext = useContext(SideNavigationContext);
@@ -25,6 +26,20 @@ export const SideNavigation = () => {
 
       <nav>
         <ul className=" space-y-3">
+          <li
+            className=" border border-white/35 flex items-center"
+            onClick={() => sideNavigationContext.setIsOpen(false)}
+          >
+            <Link
+              to={"/"}
+              className=" text-white font-medium tracking-widest rounded-sm w-full flex items-center justify-between p-2 hover:bg-white hover:text-black"
+            >
+              <span>Movies</span>
+
+              <HomeIcon size={30} />
+            </Link>
+          </li>
+
           <li
             className=" border border-white/35 flex items-center"
             onClick={() => sideNavigationContext.setIsOpen(false)}

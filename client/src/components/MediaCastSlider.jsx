@@ -8,7 +8,11 @@ export const MediaCastSlider = ({ cast }) => {
     if (cast.profile_path) {
       return (
         <SwiperSlide key={cast.cast_id}>
-          <CastProfileCard profile_path={cast.profile_path} name={cast.name} />
+          <CastProfileCard
+            profile_path={cast.profile_path}
+            name={cast.name}
+            character={cast.character}
+          />
         </SwiperSlide>
       );
     }

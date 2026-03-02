@@ -29,11 +29,18 @@ export const Explore = () => {
 
     return (
       <div className=" space-y-3" key={id}>
-        <Link to={`/collection/${mediaType}/${id}`} className=" block">
+        <div className=" flex items-center justify-between">
           <h2 className=" text-2xl text-white font-extralight tracking-wider">
             {name}
           </h2>
-        </Link>
+
+          <Link
+            to={`/collection/${mediaType}/${id}`}
+            className=" block text-white tracking-wider hover:underline"
+          >
+            View All
+          </Link>
+        </div>
 
         <MediaBackdropSlider
           key={id}
