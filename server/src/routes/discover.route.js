@@ -3,16 +3,20 @@ import axios from "axios";
 
 const router = Router();
 
-router.get("/:media_type/:with_genre/:page", async (req, res) => {
-  const { media_type, with_genre, page } = req.params;
+router.get("/:media_type/:with_genres/:page", async (req, res) => {
+  const { media_type, with_genres, page } = req.params;
 
-  const url = `https://api.themoviedb.org/3/discover/${media_type}?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc&with_genres=${with_genre}`;
+  const url = `https://api.themoviedb.org/3/discover/${media_type}`;
 
   const options = {
     method: "GET",
     headers: {
       accept: "application/json",
       Authorization: process.env.API_KEY,
+    },
+    params: {
+      page,
+      with_genres,
     },
   };
 

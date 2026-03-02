@@ -9,12 +9,12 @@ import { MediaPoster } from "../components/MediaPoster";
 export const GenreCollection = () => {
   const { ref, inView, entry } = useInView({
     threshold: 0.5,
-    triggerOnce: true,
   });
   const { mediaType, genreId } = useParams();
 
   useEffect(() => {
     if (inView) {
+      console.log(inView);
       query.fetchNextPage();
       // console.log("Yo");
     }
@@ -37,8 +37,10 @@ export const GenreCollection = () => {
     queryKey: ["collection", { mediaType, genreId }],
     queryFn: ({ pageParam = 1 }) => fetchData(pageParam),
     getNextPageParam: (lastPage, pages) => {
-      if (lastPage.total_pages > lastPage.page) {
-        return lastPage.page + 1;
+      if (pages.at(-1).total_pages > pages.at(-1).page) {
+        return pages.at(-1).page + 1;
+      } else {
+        return;
       }
     },
   });
@@ -51,6 +53,7 @@ export const GenreCollection = () => {
             <MediaPoster
               poster_path={poster_path}
               alt={title || original_title || original_name}
+              minHeight={400}
             />
           </Link>
         );
@@ -66,7 +69,7 @@ export const GenreCollection = () => {
 
       {query.isSuccess && query.hasNextPage && (
         <div ref={ref} className=" w-full flex justify-center py-10">
-          <ClipLoader color="white"></ClipLoader>
+          <ClipLoader color="white" />
         </div>
       )}
     </main>

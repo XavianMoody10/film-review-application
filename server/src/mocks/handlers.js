@@ -87,7 +87,7 @@ export const handlers = [
 
   http.get("https://api.themoviedb.org/3/genre/tv/list", async () => {
     // await delay(5000);
-    return HttpResponse.json(moviesGenresMockdata);
+    return HttpResponse.json(tvShowsGenresMockdata);
     // return HttpResponse.json([]);
     // return HttpResponse.json(null, { status: 404 });
   }),
@@ -98,9 +98,12 @@ export const handlers = [
       // await delay(5000);
       const url = new URL(request.url);
       const with_genres = url.searchParams.get("with_genres");
+      const page = url.searchParams.get("page");
 
       if (with_genres == 28) {
-        return HttpResponse.json(movieActionMockdata);
+        return HttpResponse.json(
+          movieActionMockdata.find((m) => m.page == page),
+        );
       }
 
       // return HttpResponse.json([]);
@@ -112,9 +115,12 @@ export const handlers = [
     // await delay(5000);
     const url = new URL(request.url);
     const with_genres = url.searchParams.get("with_genres");
+    const page = url.searchParams.get("page");
 
-    if (with_genres == 28) {
-      return HttpResponse.json(actionAndAdventureTVShowsMockdata);
+    if (with_genres == 10759) {
+      return HttpResponse.json(
+        actionAndAdventureTVShowsMockdata.find((m) => m.page == page),
+      );
     }
 
     // return HttpResponse.json([]);

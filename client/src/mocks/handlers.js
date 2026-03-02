@@ -102,7 +102,6 @@ export const handlers = [
     async ({ params }) => {
       // await delay(5000);
       const { with_genres, page } = params;
-      console.log(page);
 
       if (with_genres == 28) {
         return HttpResponse.json(
@@ -119,9 +118,12 @@ export const handlers = [
     "http://localhost:3000/discover/tv/:with_genres/:page",
     async ({ params }) => {
       // await delay(5000);
-      const { with_genres } = params;
+      const { with_genres, page } = params;
+
       if (with_genres == 10759) {
-        return HttpResponse.json(actionAndAdventureTVShowsMockdata);
+        return HttpResponse.json(
+          actionAndAdventureTVShowsMockdata.find((m) => m.page == page),
+        );
       }
 
       // return HttpResponse.json([]);
