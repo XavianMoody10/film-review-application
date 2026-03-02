@@ -12,6 +12,7 @@ import { Explore } from "./page/Explore";
 import { AuthFormsProvider } from "./contexts/AuthFormsContext";
 import { Template } from "./templates/Template";
 import { UserProvider } from "./contexts/UserContext";
+import { GenreCollection } from "./page/GenreCollection";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -25,6 +26,10 @@ const App = () => {
           <Route index element={<Home />} />
           <Route path="/details/:mediaType/:mediaId" element={<Details />} />
           <Route path="/explore/:mediaType" element={<Explore />} />
+          <Route
+            path="/collection/:mediaType/:genreId"
+            element={<GenreCollection />}
+          />
         </Route>
       </Route>,
     ),

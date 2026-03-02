@@ -1,6 +1,6 @@
 import { MediaBackdropSlider } from "../components/MediaBackdropSlider";
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
 export const Explore = () => {
@@ -29,9 +29,11 @@ export const Explore = () => {
 
     return (
       <div className=" space-y-3" key={id}>
-        <h2 className=" text-2xl text-white font-extralight tracking-wider">
-          {name}
-        </h2>
+        <Link to={`/collection/${mediaType}/${id}`} className=" block">
+          <h2 className=" text-2xl text-white font-extralight tracking-wider">
+            {name}
+          </h2>
+        </Link>
 
         <MediaBackdropSlider
           key={id}

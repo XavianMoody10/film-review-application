@@ -85,7 +85,6 @@ export const handlers = [
 
   http.get("http://localhost:3000/genres/movie", async () => {
     // await delay(5000);
-    console.log("Yo");
     return HttpResponse.json(moviesGenresMockdata);
     // return HttpResponse.json([]);
     // return HttpResponse.json(null, { status: 404 });
@@ -93,19 +92,22 @@ export const handlers = [
 
   http.get("http://localhost:3000/genres/tv", async () => {
     // await delay(5000);
-    console.log("Yo");
     return HttpResponse.json(tvShowsGenresMockdata);
     // return HttpResponse.json([]);
     // return HttpResponse.json(null, { status: 404 });
   }),
 
   http.get(
-    "http://localhost:3000/discover/movie/:with_genre/:page",
+    "http://localhost:3000/discover/movie/:with_genres/:page",
     async ({ params }) => {
       // await delay(5000);
-      const { with_genre } = params;
-      if (with_genre == 28) {
-        return HttpResponse.json(movieActionMockdata);
+      const { with_genres, page } = params;
+      console.log(page);
+
+      if (with_genres == 28) {
+        return HttpResponse.json(
+          movieActionMockdata.find((m) => m.page == page),
+        );
       }
 
       // return HttpResponse.json([]);
@@ -114,11 +116,11 @@ export const handlers = [
   ),
 
   http.get(
-    "http://localhost:3000/discover/tv/:with_genre/:page",
+    "http://localhost:3000/discover/tv/:with_genres/:page",
     async ({ params }) => {
       // await delay(5000);
-      const { with_genre } = params;
-      if (with_genre == 10759) {
+      const { with_genres } = params;
+      if (with_genres == 10759) {
         return HttpResponse.json(actionAndAdventureTVShowsMockdata);
       }
 

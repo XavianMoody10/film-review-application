@@ -16,6 +16,7 @@ export const Header = () => {
 
   async function logoutHandler() {
     const url = `${import.meta.env.VITE_SERVER_ENDPOINT}/auth/logout`;
+
     try {
       const response = await axios.get(url, { withCredentials: true });
       const data = await response.data;
@@ -53,14 +54,14 @@ export const Header = () => {
             onClick={() => authFormsContext.setIsLoginFormOpen(true)}
             className=" cursor-pointer h-12.5 w-12.5 bg-white/10 flex items-center justify-center rounded-full text-white hover:text-black hover:bg-white duration-150"
           >
-            <LoginIcon size={30} />
+            <LoginIcon size={25} />
           </div>
 
           <div
             onClick={() => authFormsContext.setIsSignupFormOpen(true)}
             className=" cursor-pointer h-12.5 w-12.5 bg-white/10 flex items-center justify-center rounded-full text-white hover:text-black hover:bg-white duration-150"
           >
-            <SignupIcon size={30} />
+            <SignupIcon size={25} />
           </div>
         </div>
       ) : (
