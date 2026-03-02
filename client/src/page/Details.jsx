@@ -85,7 +85,7 @@ export const Details = () => {
                 <div className=" space-y-5 w-full">
                   <h2 className=" text-white/45 text-4xl font-bold">Gallery</h2>
 
-                  <div className=" relative min-h-50">
+                  <div className=" relative min-h-25">
                     <MediaLoadingOverlay isLoading={imagesQuery.isLoading} />
 
                     {imagesQuery.isError && (

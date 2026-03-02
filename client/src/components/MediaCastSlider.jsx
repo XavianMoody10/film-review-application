@@ -23,13 +23,13 @@ export const MediaCastSlider = ({ cast }) => {
       spaceBetween={10}
       breakpoints={{
         400: {
-          slidesPerView: 2,
+          slidesPerView: 2.1,
         },
         640: {
-          slidesPerView: 3,
+          slidesPerView: 3.2,
         },
         1280: {
-          slidesPerView: 4,
+          slidesPerView: 4.2,
         },
       }}
     >
