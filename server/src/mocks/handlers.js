@@ -97,10 +97,10 @@ export const handlers = [
     async ({ request }) => {
       // await delay(5000);
       const url = new URL(request.url);
-      const with_genre = url.searchParams.get("with_genre");
+      const with_genres = url.searchParams.get("with_genres");
 
-      if (with_genre == 28) {
-        return HttpResponse.json(tvShowsGenresMockdata);
+      if (with_genres == 28) {
+        return HttpResponse.json(movieActionMockdata);
       }
 
       // return HttpResponse.json([]);
@@ -111,9 +111,9 @@ export const handlers = [
   http.get("https://api.themoviedb.org/3/discover/tv", async ({ request }) => {
     // await delay(5000);
     const url = new URL(request.url);
-    const with_genre = url.searchParams.get("with_genre");
+    const with_genres = url.searchParams.get("with_genres");
 
-    if (with_genre == 28) {
+    if (with_genres == 28) {
       return HttpResponse.json(actionAndAdventureTVShowsMockdata);
     }
 

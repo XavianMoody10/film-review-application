@@ -8,7 +8,7 @@ import { MediaLoadingOverlay } from "./MediaLoadingOverlay";
 import { Link } from "react-router-dom";
 import { MediaErrorMessageOverlay } from "./MediaErrorMessageOverlay";
 
-export const MediaBackdroplider = ({ queryKey, endpoint, mediaType }) => {
+export const MediaBackdropSlider = ({ queryKey, endpoint, mediaType }) => {
   const ref = useRef();
   const isInView = useInView(ref, { amount: "all", once: true });
 
@@ -33,6 +33,7 @@ export const MediaBackdroplider = ({ queryKey, endpoint, mediaType }) => {
     queryFn: fetchData,
     staleTime: 300000, // 5 minutes
     enabled: false,
+    retry: false,
   });
 
   const slides = query.data?.results?.map(

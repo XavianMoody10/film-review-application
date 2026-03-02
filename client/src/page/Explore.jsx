@@ -1,4 +1,4 @@
-import { MediaBackdroplider } from "../components/MediaBackdroplider";
+import { MediaBackdropSlider } from "../components/MediaBackdropSlider";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -33,7 +33,7 @@ export const Explore = () => {
           {name}
         </h2>
 
-        <MediaBackdroplider
+        <MediaBackdropSlider
           key={id}
           queryKey={["genre", id, mediaType, 1]}
           endpoint={endpoint}
