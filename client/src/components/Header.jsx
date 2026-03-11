@@ -1,7 +1,11 @@
 import { Search as SearchIcon } from "lucide-react";
 import { Squash as Hamburger } from "hamburger-react";
+import { useContext } from "react";
+import { SideNavigationContext } from "../contexts/SideNavigationContext";
 
 export const Header = () => {
+  const sideNavigationContext = useContext(SideNavigationContext);
+
   return (
     <header className=" fixed top-0 w-full p-3 flex items-center justify-between z-20">
       <div className=" w-full max-w-[320px]">
@@ -19,7 +23,12 @@ export const Header = () => {
         </div>
       </div>
 
-      <Hamburger size={20} color="white" />
+      <Hamburger
+        size={20}
+        color="white"
+        toggle={sideNavigationContext.setIsOpen}
+        toggled={sideNavigationContext.isOpen}
+      />
     </header>
   );
 };
