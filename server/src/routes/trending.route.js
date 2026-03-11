@@ -5,13 +5,15 @@ const router = Router();
 
 router.get("/:media_type", async (req, res) => {
   const { media_type } = req.params;
-  const media_type_options = ["movie", "tv"];
+  const media_type_options = ["all", "movie", "tv"];
 
   const url = `https://api.themoviedb.org/3/trending/${media_type}/day`;
 
   try {
     if (!media_type_options.includes(media_type)) {
-      throw new Error("'media_type' value must be either 'movie' or 'tv'");
+      throw new Error(
+        "'media_type' value must be either 'movie', 'tv', or 'all'",
+      );
     }
 
     const response = await axios.get(url);
