@@ -16,7 +16,12 @@ router.get("/:media_type", async (req, res) => {
       );
     }
 
-    const response = await axios.get(url);
+    const response = await axios.get(url, {
+      headers: {
+        accept: "application/json",
+        Authorization: process.env.API_KEY,
+      },
+    });
     return res.status(200).json(response.data);
   } catch (error) {
     if (error.response?.status >= 400) {

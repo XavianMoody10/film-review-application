@@ -11,6 +11,9 @@ import { Explore } from "./pages/Explore";
 import { SideNavigationProvider } from "./contexts/SideNavigationContext";
 import { Header } from "./components/Header";
 import { SideNavigation } from "./components/SideNavigation";
+import { GenreCollection } from "./pages/GenreCollection";
+import { ListCollection } from "./pages/ListCollection";
+import { Details } from "./pages/Details";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -31,6 +34,15 @@ const App = () => {
         >
           <Route index element={<Home />} />
           <Route path="/explore/:media_type" element={<Explore />} />
+          <Route
+            path="/collection/list/:media_type/:list_value"
+            element={<ListCollection />}
+          />
+          <Route
+            path="/collection/genre/:media_type/:genre_id"
+            element={<GenreCollection />}
+          />
+          <Route path="/details/:media_type/:id" element={<Details />} />
         </Route>
       </Route>,
     ),
