@@ -1,12 +1,12 @@
 import { Link, useParams } from "react-router-dom";
 import { MainWrapper } from "../components/MainWrapper";
 import axios from "axios";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { LazyLoadMediaPoster } from "../components/LazyLoadMediaPoster";
 import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
 
-async function fetchCollectionByList(media_type, list_value, page) {
+async function fetchCollectionByList(media_type, list_value, page = 1) {
   const url = `http://localhost:3000/list/${media_type}/${list_value}/${page}`;
 
   if (!media_type) {
@@ -19,6 +19,7 @@ async function fetchCollectionByList(media_type, list_value, page) {
 
   try {
     const response = await axios.get(url);
+    console.log(response.data);
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.error);
@@ -36,11 +37,10 @@ export const ListCollection = () => {
   }, [inView]);
 
   const query = useInfiniteQuery({
-    queryKey: ["list", { media_type, list_value: "now_playing" }],
+    queryKey: ["list-infinity", { media_type, list_value }],
     queryFn: ({ pageParam }) =>
       fetchCollectionByList(media_type, list_value, pageParam),
     getNextPageParam: (lastPage, allPages) => {
-      console.log(allPages.at(-1));
       if (lastPage.page < lastPage.total_pages) {
         return lastPage.page + 1;
       } else {
@@ -66,9 +66,11 @@ export const ListCollection = () => {
   return (
     <MainWrapper>
       <div className=" px-10 pt-28 pb-10 space-y-10">
-        <div className=" grid gap-5 min-[400px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-          {posters}
-        </div>
+        {query.isSuccess && (
+          <div className=" grid gap-5 min-[400px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+            {posters}
+          </div>
+        )}
 
         {query.hasNextPage && (
           <div className=" w-full border border-white h-[100px]" ref={ref}>

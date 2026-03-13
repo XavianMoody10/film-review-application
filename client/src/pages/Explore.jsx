@@ -11,8 +11,6 @@ import { useQuery } from "@tanstack/react-query";
 async function fetchCollectionByList(media_type, list_value, page) {
   const url = `http://localhost:3000/list/${media_type}/${list_value}/${page}`;
 
-  console.log(page);
-
   if (!media_type) {
     throw new Error("'media_type' is required");
   }
@@ -29,8 +27,8 @@ async function fetchCollectionByList(media_type, list_value, page) {
   }
 }
 
-async function fetchCollectionByGenre(media_type, genre_id) {
-  const url = `http://localhost:3000/genres/discover/${media_type}/${genre_id}`;
+async function fetchCollectionByGenre(media_type, genre_id, page = 1) {
+  const url = `http://localhost:3000/genres/discover/${media_type}/${genre_id}/${page}`;
 
   if (!media_type) {
     throw new Error("'media_type' is required");
@@ -77,14 +75,19 @@ export const Explore = () => {
   const genresMap = genresQuery.data?.genres?.map(({ id, name }) => {
     return (
       <div key={id} className=" max-w-300 mx-auto relative space-y-8">
-        <h2 className=" text-2xl font-urbanist text-white tracking-wider">
-          {name}
-        </h2>
+        <Link
+          to={`/collection/genre/${media_type}/${id}`}
+          className=" block w-fit"
+        >
+          <h2 className=" text-2xl font-urbanist text-white tracking-wider">
+            {name}
+          </h2>
+        </Link>
 
         <LazyLoadingMediaSlider
           mediaType={media_type}
           queryKey={["discover", { media_type, with_genre: id }]}
-          queryFn={() => fetchCollectionByGenre(media_type, id)}
+          queryFn={() => fetchCollectionByGenre(media_type, id, 1)}
         />
       </div>
     );

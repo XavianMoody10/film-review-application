@@ -1,16 +1,20 @@
+import { Link, useParams } from "react-router-dom";
+import { MainWrapper } from "../components/MainWrapper";
 import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { LazyLoadMediaPoster } from "../components/LazyLoadMediaPoster";
+import { useInView } from "react-intersection-observer";
+import { useEffect } from "react";
 
-async function fetchCollectionByList(media_type, list_value) {
-  const url = `http://localhost:3000/list/${media_type}/${list_value}`;
+async function fetchCollectionByGenre(media_type, genre_id, page = 1) {
+  const url = `http://localhost:3000/genres/discover/${media_type}/${genre_id}/${page}`;
 
   if (!media_type) {
     throw new Error("'media_type' is required");
   }
 
-  if (!list_value) {
-    throw new Error("'list_value' is required");
+  if (!genre_id) {
+    throw new Error("'genre_id' is required");
   }
 
   try {
@@ -22,25 +26,55 @@ async function fetchCollectionByList(media_type, list_value) {
 }
 
 export const GenreCollection = () => {
-  const { media_type, list_value } = useParams();
+  const { media_type, genre_id } = useParams();
+  const { ref, inView } = useInView({ threshold: 0.5 });
 
-  const query = useQuery({
-    queryKey: ["list", { media_type, list_value: "now_playing" }],
-    queryFn: () => fetchCollectionByList(media_type, list_value),
+  useEffect(() => {
+    if (inView) {
+      query.fetchNextPage();
+    }
+  }, [inView]);
+
+  const query = useInfiniteQuery({
+    queryKey: ["genre", { media_type, genre_id }],
+    queryFn: ({ pageParam }) =>
+      fetchCollectionByGenre(media_type, genre_id, pageParam),
+    getNextPageParam: (lastPage, allPages) => {
+      if (lastPage.page < lastPage.total_pages) {
+        return lastPage.page + 1;
+      } else {
+        return null;
+      }
+    },
+    initialPageParam: 1,
     retry: false,
     refetchOnWindowFocus: false,
     staleTime: 1000 * 60 * 10, // Revalidate in 10 minutes
   });
 
-  const posters = query.data?.results.map(({ id, poster_path }) => {
-    const poster = `https://image.tmdb.org/t/p/original${poster_path}`;
-
-    return (
-      <div>
-        <img src={poster} alt="" />
-      </div>
-    );
+  const posters = query.data?.pages.map((page) => {
+    return page?.results?.map(({ id, poster_path }) => {
+      return (
+        <Link key={id} to={`/details/${media_type}/${id}`}>
+          <LazyLoadMediaPoster poster_path={poster_path} />
+        </Link>
+      );
+    });
   });
 
-  return <div>GenreCollection</div>;
+  return (
+    <MainWrapper>
+      <div className=" px-10 pt-28 pb-10 space-y-10">
+        <div className=" grid gap-5 min-[400px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+          {posters}
+        </div>
+
+        {query.hasNextPage && (
+          <div className=" w-full border border-white h-25" ref={ref}>
+            ...loading
+          </div>
+        )}
+      </div>
+    </MainWrapper>
+  );
 };

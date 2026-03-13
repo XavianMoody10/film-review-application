@@ -33,8 +33,8 @@ router.get("/:media_type", async (req, res) => {
   }
 });
 
-router.get("/discover/:media_type/:genre_id", async (req, res) => {
-  const { media_type, genre_id } = req.params;
+router.get("/discover/:media_type/:genre_id/:page", async (req, res) => {
+  const { media_type, genre_id, page } = req.params;
   const media_type_options = ["movie", "tv"];
 
   const url = `https://api.themoviedb.org/3/discover/${media_type}`;
@@ -53,11 +53,12 @@ router.get("/discover/:media_type/:genre_id", async (req, res) => {
         accept: "application/json",
         Authorization: process.env.API_KEY,
       },
-      params: { with_genres: genre_id },
+      params: { with_genres: genre_id, page },
     });
 
     return res.status(200).json(response.data);
   } catch (error) {
+    console.log(error);
     if (error.response?.status >= 400) {
       return res.status(400).json({
         error: `Error getting collection from genre`,

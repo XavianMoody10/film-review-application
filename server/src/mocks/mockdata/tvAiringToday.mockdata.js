@@ -299,6 +299,8 @@ export default [
         id: 15114,
       },
     ],
+    total_pages: 2,
+    total_results: 474,
   },
   {
     page: 2,
@@ -643,7 +645,7 @@ export default [
         vote_count: 90,
       },
     ],
-    total_pages: 24,
+    total_pages: 2,
     total_results: 474,
   },
 ];

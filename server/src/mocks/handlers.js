@@ -52,8 +52,6 @@ export const handlers = [
     const url = new URL(request.url);
     const page = url.searchParams.get("page");
 
-    console.log(page);
-
     return HttpResponse.json(
       tvAiringTodayMockdata.find((t) => {
         return t.page == page;
@@ -87,9 +85,14 @@ export const handlers = [
   http.get("https://api.themoviedb.org/3/discover/movie", ({ request }) => {
     const url = new URL(request.url);
     const with_genres = url.searchParams.get("with_genres");
+    const page = url.searchParams.get("page");
 
     if (with_genres == 28) {
-      return HttpResponse.json(actionMoviesMockdata);
+      return HttpResponse.json(
+        actionMoviesMockdata.find((t) => {
+          return t.page == page;
+        }),
+      );
     } else {
       return HttpResponse.json(null, { status: 400 });
     }
@@ -98,9 +101,14 @@ export const handlers = [
   http.get("https://api.themoviedb.org/3/discover/tv", ({ request }) => {
     const url = new URL(request.url);
     const with_genres = url.searchParams.get("with_genres");
+    const page = url.searchParams.get("page");
 
     if (with_genres == 10759) {
-      return HttpResponse.json(actionTVMockdata);
+      return HttpResponse.json(
+        actionTVMockdata.find((t) => {
+          return t.page == page;
+        }),
+      );
     } else {
       return HttpResponse.json(null, { status: 400 });
     }
