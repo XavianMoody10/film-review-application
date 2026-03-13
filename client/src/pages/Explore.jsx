@@ -8,8 +8,10 @@ import axios from "axios";
 import { LazyLoadingMediaSlider } from "../components/LazyLoadingMediaSlider";
 import { useQuery } from "@tanstack/react-query";
 
-async function fetchCollectionByList(media_type, list_value) {
-  const url = `http://localhost:3000/list/${media_type}/${list_value}`;
+async function fetchCollectionByList(media_type, list_value, page) {
+  const url = `http://localhost:3000/list/${media_type}/${list_value}/${page}`;
+
+  console.log(page);
 
   if (!media_type) {
     throw new Error("'media_type' is required");
@@ -112,7 +114,9 @@ export const Explore = () => {
               <LazyLoadingMediaSlider
                 mediaType={media_type}
                 queryKey={["list", { media_type, list_value: "now_playing" }]}
-                queryFn={() => fetchCollectionByList(media_type, "now_playing")}
+                queryFn={() =>
+                  fetchCollectionByList(media_type, "now_playing", 1)
+                }
               />
             </div>
 
@@ -129,7 +133,7 @@ export const Explore = () => {
               <LazyLoadingMediaSlider
                 mediaType={media_type}
                 queryKey={["list", { media_type, list_value: "popular" }]}
-                queryFn={() => fetchCollectionByList(media_type, "popular")}
+                queryFn={() => fetchCollectionByList(media_type, "popular", 1)}
               />
             </div>
 
@@ -146,7 +150,9 @@ export const Explore = () => {
               <LazyLoadingMediaSlider
                 mediaType={media_type}
                 queryKey={["list", { media_type, list_value: "top_rated" }]}
-                queryFn={() => fetchCollectionByList(media_type, "top_rated")}
+                queryFn={() =>
+                  fetchCollectionByList(media_type, "top_rated", 1)
+                }
               />
             </div>
 
@@ -163,7 +169,7 @@ export const Explore = () => {
               <LazyLoadingMediaSlider
                 mediaType={media_type}
                 queryKey={["list", { media_type, list_value: "upcoming" }]}
-                queryFn={() => fetchCollectionByList(media_type, "upcoming")}
+                queryFn={() => fetchCollectionByList(media_type, "upcoming", 1)}
               />
             </div>
           </>
@@ -185,7 +191,7 @@ export const Explore = () => {
                 mediaType={media_type}
                 queryKey={["list", { media_type, list_value: "airing_today" }]}
                 queryFn={() =>
-                  fetchCollectionByList(media_type, "airing_today")
+                  fetchCollectionByList(media_type, "airing_today", 1)
                 }
               />
             </div>
@@ -203,7 +209,9 @@ export const Explore = () => {
               <LazyLoadingMediaSlider
                 mediaType={media_type}
                 queryKey={["list", { media_type, list_value: "on_the_air" }]}
-                queryFn={() => fetchCollectionByList(media_type, "on_the_air")}
+                queryFn={() =>
+                  fetchCollectionByList(media_type, "on_the_air", 1)
+                }
               />
             </div>
 
@@ -220,7 +228,7 @@ export const Explore = () => {
               <LazyLoadingMediaSlider
                 mediaType={media_type}
                 queryKey={["list", { media_type, list_value: "popular" }]}
-                queryFn={() => fetchCollectionByList(media_type, "popular")}
+                queryFn={() => fetchCollectionByList(media_type, "popular", 1)}
               />
             </div>
 
@@ -237,7 +245,9 @@ export const Explore = () => {
               <LazyLoadingMediaSlider
                 mediaType={media_type}
                 queryKey={["list", { media_type, list_value: "Top Rated" }]}
-                queryFn={() => fetchCollectionByList(media_type, "Top Rated")}
+                queryFn={() =>
+                  fetchCollectionByList(media_type, "Top Rated", 1)
+                }
               />
             </div>
           </>

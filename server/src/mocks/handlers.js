@@ -24,8 +24,15 @@ export const handlers = [
     return HttpResponse.json(trendingTVMockdata);
     // return HttpResponse.json(null, { status: 400 });
   }),
-  http.get("https://api.themoviedb.org/3/movie/now_playing", () => {
-    return HttpResponse.json(nowPlayingMoviesMockdata);
+  http.get("https://api.themoviedb.org/3/movie/now_playing", ({ request }) => {
+    const url = new URL(request.url);
+    const page = url.searchParams.get("page");
+
+    return HttpResponse.json(
+      nowPlayingMoviesMockdata.find((t) => {
+        return t.page == page;
+      }),
+    );
     // return HttpResponse.json(null, { status: 400 });
   }),
   http.get("https://api.themoviedb.org/3/movie/popular", () => {
@@ -41,8 +48,18 @@ export const handlers = [
     return HttpResponse.json(null, { status: 400 });
   }),
 
-  http.get("https://api.themoviedb.org/3/tv/airing_today", () => {
-    return HttpResponse.json(tvAiringTodayMockdata);
+  http.get("https://api.themoviedb.org/3/tv/airing_today", ({ request }) => {
+    const url = new URL(request.url);
+    const page = url.searchParams.get("page");
+
+    console.log(page);
+
+    return HttpResponse.json(
+      tvAiringTodayMockdata.find((t) => {
+        return t.page == page;
+      }),
+    );
+
     // return HttpResponse.json(null, { status: 400 });
   }),
   http.get("https://api.themoviedb.org/3/tv/on_the_air", () => {

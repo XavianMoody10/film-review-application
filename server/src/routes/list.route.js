@@ -3,8 +3,8 @@ import axios from "axios";
 
 const router = Router();
 
-router.get("/:media_type/:list_value", async (req, res) => {
-  const { media_type, list_value } = req.params;
+router.get("/:media_type/:list_value/:page", async (req, res) => {
+  const { media_type, list_value, page } = req.params;
   const media_type_options = ["all", "movie", "tv"];
   const list_value_movie_options = [
     "now_playing",
@@ -13,10 +13,10 @@ router.get("/:media_type/:list_value", async (req, res) => {
     "upcoming",
   ];
   const list_value_tv_options = [
-    "now_playing",
+    "airing_today",
+    "on_the_air",
     "popular",
     "top_rated",
-    "upcoming",
   ];
 
   const url = `https://api.themoviedb.org/3/${media_type}/${list_value}`;
@@ -30,7 +30,7 @@ router.get("/:media_type/:list_value", async (req, res) => {
 
     if (
       !list_value_movie_options.includes(list_value) &&
-      list_value_tv_options.includes(list_value)
+      !list_value_tv_options.includes(list_value)
     ) {
       throw new Error("'list_value' value must be a valid");
     }
@@ -40,12 +40,15 @@ router.get("/:media_type/:list_value", async (req, res) => {
         accept: "application/json",
         Authorization: process.env.API_KEY,
       },
+      params: {
+        page,
+      },
     });
     return res.status(200).json(response.data);
   } catch (error) {
     if (error.response?.status >= 400) {
       return res.status(400).json({
-        error: `Error getting list collection for  ${list_value}`,
+        error: `Error getting list collection for ${list_value}`,
       });
     }
 
