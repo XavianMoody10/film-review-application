@@ -58,7 +58,6 @@ router.get("/discover/:media_type/:genre_id/:page", async (req, res) => {
 
     return res.status(200).json(response.data);
   } catch (error) {
-    console.log(error);
     if (error.response?.status >= 400) {
       return res.status(400).json({
         error: `Error getting collection from genre`,

@@ -42,7 +42,7 @@ const App = () => {
             path="/collection/genre/:media_type/:genre_id"
             element={<GenreCollection />}
           />
-          <Route path="/details/:media_type/:id" element={<Details />} />
+          <Route path="/details/:media_type/:media_id" element={<Details />} />
         </Route>
       </Route>,
     ),
