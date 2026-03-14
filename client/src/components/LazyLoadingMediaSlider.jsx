@@ -29,7 +29,14 @@ export const LazyLoadingMediaSlider = ({ queryKey, queryFn, mediaType }) => {
   }, [inView]);
 
   const slides = query.data?.results?.map(
-    ({ id, backdrop_path, media_type, title, original_name }) => {
+    ({
+      id,
+      backdrop_path,
+      media_type,
+      title,
+      original_name,
+      original_title,
+    }) => {
       const backdrop = `https://image.tmdb.org/t/p/original${backdrop_path}`;
 
       return (
@@ -45,7 +52,7 @@ export const LazyLoadingMediaSlider = ({ queryKey, queryFn, mediaType }) => {
               to={`/details/${media_type || mediaType}/${id}`}
               className=" text-white font-urbanist tracking-widest hover:underline"
             >
-              {title || original_name}
+              {title || original_title || original_name}
             </Link>
           </div>
         </SwiperSlide>

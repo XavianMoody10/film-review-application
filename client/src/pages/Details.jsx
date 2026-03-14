@@ -160,7 +160,10 @@ export const Details = () => {
 
   const backdrop = `https://image.tmdb.org/t/p/original${query.data?.backdrop_path}`;
   const poster = `https://image.tmdb.org/t/p/original${query.data?.poster_path}`;
-  const title = query.data?.title || query.data?.original_title;
+  const title =
+    query.data?.title ||
+    query.data?.original_title ||
+    query.data?.original_name;
   const overview = query.data?.overview;
 
   return (

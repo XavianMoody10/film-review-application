@@ -5,6 +5,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { LazyLoadMediaPoster } from "../components/LazyLoadMediaPoster";
 import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
+import { ClipLoader } from "react-spinners";
 
 async function fetchCollectionByGenre(media_type, genre_id, page = 1) {
   const url = `http://localhost:3000/genres/discover/${media_type}/${genre_id}/${page}`;
@@ -70,8 +71,11 @@ export const GenreCollection = () => {
         </div>
 
         {query.hasNextPage && (
-          <div className=" w-full border border-white h-25" ref={ref}>
-            ...loading
+          <div
+            className=" w-full border border-white h-25 flex items-center justify-center"
+            ref={ref}
+          >
+            <ClipLoader size={20} color="white" />
           </div>
         )}
       </div>

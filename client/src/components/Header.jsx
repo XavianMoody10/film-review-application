@@ -77,7 +77,7 @@ export const Header = () => {
   );
 
   return (
-    <header className=" fixed top-0 w-full p-3 flex items-center justify-between z-30 bg-black">
+    <header className=" fixed top-0 w-full p-3 flex items-center justify-between z-30 bg-black/40">
       <div className=" w-full max-w-[320px]">
         <div
           className=" border border-white flex items-center justify-between gap-2 h-10 w-full pr-2"
