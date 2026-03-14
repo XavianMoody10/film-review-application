@@ -300,7 +300,7 @@ export const Details = () => {
               <LoadingOverlay isLoading={reviewsQuery.isLoading} />
 
               {reviewsQuery.data?.length === 0 ? (
-                <div className=" text-white font-urbanist text-lg text-center tracking-wider border border-white/20 h-[100px] flex items-center justify-center">
+                <div className=" text-white font-urbanist text-lg text-center tracking-wider border border-white/20 h-25 flex items-center justify-center">
                   No Reviews
                 </div>
               ) : (

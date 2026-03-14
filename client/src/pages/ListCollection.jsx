@@ -73,7 +73,7 @@ export const ListCollection = () => {
         )}
 
         {query.hasNextPage && (
-          <div className=" w-full border border-white h-[100px]" ref={ref}>
+          <div className=" w-full border border-white h-25" ref={ref}>
             ...loading
           </div>
         )}

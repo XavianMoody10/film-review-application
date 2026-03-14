@@ -15,7 +15,7 @@ export const SideNavigation = () => {
       initial={{ x: "-100%" }}
       animate={{ x: sideNavigationContext.isOpen ? 0 : "-100%" }}
       transition={{ stiffness: 0, ease: "easeInOut" }}
-      className=" p-5 bg-linear-to-b from-black to-gray-900 fixed left-0 top-0 h-screen w-full min-[400px]:max-w-[350px] border-r border-gray-60000 shadow-2xl z-30 space-y-4"
+      className=" p-5 bg-linear-to-b from-black to-gray-900 fixed left-0 top-0 h-screen w-full min-[400px]:max-w-87.5 border-r border-gray-60000 shadow-2xl z-30 space-y-4"
     >
       <X
         color="white"

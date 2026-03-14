@@ -10,6 +10,7 @@ import trendingTVMockdata from "./mockdata/trendingTV.mockdata.js";
 import tvGenresMockdata from "./mockdata/tvGenres.mockdata.js";
 import actionTVMockdata from "./mockdata/actionTV.mockdata.js";
 import movieDetailsMockdata from "./mockdata/movieDetails.mockdata.js";
+import searchResultsMockdata from "./mockdata/searchResults.mockdata.js";
 
 export const handlers = [
   http.get("https://api.themoviedb.org/3/trending/all/day", async () => {
@@ -118,5 +119,19 @@ export const handlers = [
   http.get("https://api.themoviedb.org/3/movie/934433", async () => {
     await delay(3000);
     return HttpResponse.json(movieDetailsMockdata);
+  }),
+
+  http.get("https://api.themoviedb.org/3/search/multi", async ({ request }) => {
+    await delay(3000);
+    const url = new URL(request.url);
+    const query = url.searchParams.get("query");
+
+    // if (query === "spiderman") {
+    //   return HttpResponse.json(searchResultsMockdata);
+    // } else {
+    //   return HttpResponse.json({ results: [] });
+    // }
+
+    return HttpResponse.json(null, { status: 400 });
   }),
 ];

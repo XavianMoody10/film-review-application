@@ -7,6 +7,7 @@ import listRoute from "./src/routes/list.route.js";
 import genresRoute from "./src/routes/genres.route.js";
 import detailsRoute from "./src/routes/details.route.js";
 import reviewsRoute from "./src/routes/reviews.route.js";
+import searchRoute from "./src/routes/search.route.js";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -21,6 +22,7 @@ app.use("/list", listRoute);
 app.use("/genres", genresRoute);
 app.use("/details", detailsRoute);
 app.use("/reviews", reviewsRoute);
+app.use("/search", searchRoute);
 
 // Server
 app.listen(PORT, async () => {
