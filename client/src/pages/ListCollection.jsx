@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import { ClipLoader } from "react-spinners";
 
 async function fetchCollectionByList(media_type, list_value, page = 1) {
-  const url = `http://localhost:3000/list/${media_type}/${list_value}/${page}`;
+  const url = `${import.meta.env.VITE_API_URL}/list/${media_type}/${list_value}/${page}`;
 
   if (!media_type) {
     throw new Error("'media_type' is required");

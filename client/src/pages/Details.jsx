@@ -14,7 +14,7 @@ import { FullPageLoadingOverlay } from "../components/FullPageLoadingOverlay";
 import { LoadingOverlay } from "../components/LoadingOverlay";
 
 async function fetchMediaDetails(media_type, series_id, movie_id) {
-  const url = `http://localhost:3000/details/${media_type}`;
+  const url = `${import.meta.env.VITE_API_URL}/details/${media_type}`;
 
   try {
     const response = await axios.get(url, { params: { series_id, movie_id } });
@@ -25,7 +25,7 @@ async function fetchMediaDetails(media_type, series_id, movie_id) {
 }
 
 async function fetchMediaReviews(media_type, media_id) {
-  const url = `http://localhost:3000/reviews/${media_type}/${media_id}`;
+  const url = `${import.meta.env.VITE_API_URL}/reviews/${media_type}/${media_id}`;
 
   try {
     const response = await axios.get(url);
@@ -38,7 +38,7 @@ async function fetchMediaReviews(media_type, media_id) {
 async function postReview(media_type, media_id, postObj) {
   const { title, review, rating } = postObj;
 
-  const url = `http://localhost:3000/reviews/create/${media_type}/${media_id}`;
+  const url = `${import.meta.env.VITE_API_URL}/reviews/create/${media_type}/${media_id}`;
 
   if (!media_type) {
     throw new Error("'media_type' is required");

@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import { ClipLoader } from "react-spinners";
 
 async function fetchCollectionByGenre(media_type, genre_id, page = 1) {
-  const url = `http://localhost:3000/genres/discover/${media_type}/${genre_id}/${page}`;
+  const url = `${import.meta.env.VITE_API_URL}/genres/discover/${media_type}/${genre_id}/${page}`;
 
   if (!media_type) {
     throw new Error("'media_type' is required");

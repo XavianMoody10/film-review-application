@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 export async function fetchTrendingMedia(media_type) {
-  const url = `http://localhost:3000/trending/${media_type}`;
+  const url = `${import.meta.env.VITE_API_URL}/trending/${media_type}`;
 
   if (!media_type) {
     throw new Error("'media_type' is required");

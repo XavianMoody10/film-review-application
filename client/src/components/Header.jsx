@@ -12,7 +12,7 @@ import { useDebounce } from "../hooks/useDebounce";
 import { LoadingOverlay } from "./LoadingOverlay";
 
 async function fetchMediaBySearch(query) {
-  const url = `http://localhost:3000/search/${query}`;
+  const url = `${import.meta.env.VITE_API_URL}/search/${query}`;
 
   if (!query) {
     throw new Error("'query' value is empty");
@@ -118,7 +118,7 @@ export const Header = () => {
                   No Results
                 </div>
               ) : (
-                <div className=" p-5">
+                <div className=" p-5 pt-14">
                   <Swiper
                     slidesPerView={1.2}
                     breakpoints={{

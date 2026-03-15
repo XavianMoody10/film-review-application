@@ -9,7 +9,7 @@ import { LazyLoadingMediaSlider } from "../components/LazyLoadingMediaSlider";
 import { useQuery } from "@tanstack/react-query";
 
 async function fetchCollectionByList(media_type, list_value, page) {
-  const url = `http://localhost:3000/list/${media_type}/${list_value}/${page}`;
+  const url = `${import.meta.env.VITE_API_URL}/list/${media_type}/${list_value}/${page}`;
 
   if (!media_type) {
     throw new Error("'media_type' is required");
@@ -28,7 +28,7 @@ async function fetchCollectionByList(media_type, list_value, page) {
 }
 
 async function fetchCollectionByGenre(media_type, genre_id, page = 1) {
-  const url = `http://localhost:3000/genres/discover/${media_type}/${genre_id}/${page}`;
+  const url = `${import.meta.env.VITE_API_URL}/genres/discover/${media_type}/${genre_id}/${page}`;
 
   if (!media_type) {
     throw new Error("'media_type' is required");
@@ -47,7 +47,7 @@ async function fetchCollectionByGenre(media_type, genre_id, page = 1) {
 }
 
 async function fetchGenresList(media_type) {
-  const url = `http://localhost:3000/genres/${media_type}`;
+  const url = `${import.meta.env.VITE_API_URL}/genres/${media_type}`;
 
   if (!media_type) {
     throw new Error("'media_type' is required");
