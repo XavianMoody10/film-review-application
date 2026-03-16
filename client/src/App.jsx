@@ -14,6 +14,7 @@ import { SideNavigation } from "./components/SideNavigation";
 import { GenreCollection } from "./pages/GenreCollection";
 import { ListCollection } from "./pages/ListCollection";
 import { Details } from "./pages/Details";
+import { ActionLoadingProvider } from "./contexts/ActionLoadingContext";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -50,9 +51,11 @@ const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <SideNavigationProvider>
-        <RouterProvider router={router} />
-      </SideNavigationProvider>
+      <ActionLoadingProvider>
+        <SideNavigationProvider>
+          <RouterProvider router={router} />
+        </SideNavigationProvider>
+      </ActionLoadingProvider>
     </QueryClientProvider>
   );
 };

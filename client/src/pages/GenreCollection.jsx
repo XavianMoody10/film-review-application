@@ -1,34 +1,17 @@
 import { Link, useParams } from "react-router-dom";
 import { MainWrapper } from "../components/MainWrapper";
-import axios from "axios";
-import { useInfiniteQuery } from "@tanstack/react-query";
 import { LazyLoadMediaPoster } from "../components/LazyLoadMediaPoster";
 import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
 import { ClipLoader } from "react-spinners";
-
-async function fetchCollectionByGenre(media_type, genre_id, page = 1) {
-  const url = `${import.meta.env.VITE_API_URL}/genres/discover/${media_type}/${genre_id}/${page}`;
-
-  if (!media_type) {
-    throw new Error("'media_type' is required");
-  }
-
-  if (!genre_id) {
-    throw new Error("'genre_id' is required");
-  }
-
-  try {
-    const response = await axios.get(url);
-    return response.data;
-  } catch (error) {
-    throw new Error(error.response.data.error);
-  }
-}
+import { useFetchInfiniteGenreCollection } from "../hooks/useFetchInfiniteGenreCollection";
 
 export const GenreCollection = () => {
   const { media_type, genre_id } = useParams();
   const { ref, inView } = useInView({ threshold: 0.5 });
+
+  // Custom hook
+  const query = useFetchInfiniteGenreCollection(media_type, genre_id);
 
   useEffect(() => {
     if (inView) {
@@ -36,23 +19,7 @@ export const GenreCollection = () => {
     }
   }, [inView]);
 
-  const query = useInfiniteQuery({
-    queryKey: ["genre", { media_type, genre_id }],
-    queryFn: ({ pageParam }) =>
-      fetchCollectionByGenre(media_type, genre_id, pageParam),
-    getNextPageParam: (lastPage, allPages) => {
-      if (lastPage.page < lastPage.total_pages) {
-        return lastPage.page + 1;
-      } else {
-        return null;
-      }
-    },
-    initialPageParam: 1,
-    retry: false,
-    refetchOnWindowFocus: false,
-    staleTime: 1000 * 60 * 10, // Revalidate in 10 minutes
-  });
-
+  // Display posters
   const posters = query.data?.pages.map((page) => {
     return page?.results?.map(({ id, poster_path }) => {
       return (
