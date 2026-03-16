@@ -9,7 +9,7 @@ import { useFetchGenresList } from "../hooks/useFetchGenresList";
 import { MovieListLazyLoadingSliders } from "../components/MovieListLazyLoadingSliders";
 import { TVListLazyLoadingSliders } from "../components/TVListLazyLoadingSliders";
 import { fetchCollectionByList } from "../services/list.services";
-import { fetchCollectionByGenre } from "../services/genres.services";
+import { fetchCollectionByGenre } from "../services/discover.services";
 
 export const Explore = () => {
   const { media_type } = useParams();
