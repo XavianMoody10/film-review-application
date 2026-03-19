@@ -6,15 +6,13 @@ A full-stack MERN application that allows users to rate and leave reviews for mo
 
 ## 🌐 Live Demo
 
-👉 [View Production App](https://ecommerce-application-livid.vercel.app/)
+👉 [https://ecommerce-application-livid.vercel.app/](https://ecommerce-application-livid.vercel.app/)
 
 ---
 
 ## 🖼️ Preview
 
 ![App Screenshot](./snippets/snippet.png)
-
-> You can upload your image to GitHub (in the repo) or use a service like Imgur.
 
 ---
 
@@ -39,6 +37,12 @@ A full-stack MERN application that allows users to rate and leave reviews for mo
 - MongoDB / Mongoose
 - cors
 - Nodemon
+
+## ✨ Features
+
+- 🔍 Search for movies and TV shows in real-time
+- ⭐ Add and view user reviews
+- 📱 Fully responsive design (works on mobile, tablet, and desktop)
 
 ## ⚠️ Important Note
 
