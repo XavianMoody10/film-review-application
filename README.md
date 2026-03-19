@@ -6,7 +6,7 @@ A full-stack MERN application that allows users to rate and leave reviews for mo
 
 ## 🌐 Live Demo
 
-👉 [https://ecommerce-application-livid.vercel.app/](https://ecommerce-application-livid.vercel.app/)
+👉 [https://film-review-application.vercel.app](https://film-review-application.vercel.app/)
 
 ---
 
